@@ -38,7 +38,7 @@ public class ButtonStageManager : MonoBehaviour
         this.unitStage = unit;
         subCamm_1.gameObject.SetActive(true);
         mainCam.gameObject.SetActive(false);
-        btnPickup.AddBtns(unit, subCamm_1);
+        btnPickup.AddBtns(unit);
     }
     // Active and Unactive BtnAsk
     #region

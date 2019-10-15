@@ -28,8 +28,8 @@ public class Unit : MonoBehaviour
             //gameObject.SetActive(false);
         }
         if (AskBtns.Count == 0)
-        {            
-            for(int i = 0; i < btnContainer.childCount; i++)
+        {
+            for (int i = 0; i < btnContainer.childCount; i++)
             {
                 AskBtns.Add(btnContainer.GetChild(i).GetComponent<Transform>());
             }
@@ -47,19 +47,20 @@ public class Unit : MonoBehaviour
     }
     public bool IsWin(int index)
     {
-        Debug.Log("index: " + index);
-        for (int i = 0; i < results.Count; i++)
+        if (index == 1)
         {
-            if (results[i] == index)
-            {
-                Win();
-                isWin = true;
-                return true;
-            }
+            Win();
+            isWin = true;
+            return true;
         }
         isWin = false;
         Lose();
         return false;
+    }
+    public int GetResult(int btnIndex)
+    {
+        if (btnIndex < 0 || AskBtns.Count == 0 || btnIndex > AskBtns.Count) return 0;
+        return results[btnIndex];
     }
     //public Transform[] GetAskBtns()
     //{

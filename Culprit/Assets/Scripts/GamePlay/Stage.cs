@@ -114,7 +114,8 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     {
         foreach (UnitStage unit in _unitList)
         {
-            unit.UnactiveUnitStage();
+            if (unit != null)
+                unit.UnactiveUnitStage();
         }
         Open();
     }
@@ -129,12 +130,14 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     public void LoadUnit(Unit[] units)
     {
         int i = 0;
+        Debug.Log(units.Length);
         for (; i < units.Length && i < _unitList.Length; i++)
         {
             _unitList[i].LoadUnit(units[i]);
         }
         for (; i < _unitList.Length; i++)
         {
+            _unitList[i].unit = null;
             _unitList[i].gameObject.SetActive(false);
         }
     }

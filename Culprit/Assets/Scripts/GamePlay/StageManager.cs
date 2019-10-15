@@ -141,6 +141,7 @@ public class StageManager : MonoBehaviour, IShowStage
         {
             _stageList[k].gameObject.SetActive(false);
         }
+        _stageList = GetComponentsInChildren<Stage>();
     }
     private void OnValidate()
     {

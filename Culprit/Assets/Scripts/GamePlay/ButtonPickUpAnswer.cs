@@ -20,7 +20,7 @@ public class ButtonPickUpAnswer : MonoBehaviour
             Instance = this;
         }
     }
-    public void AddBtns(UnitStage unitstage, Camera camera)
+    public void AddBtns(UnitStage unitstage)
     {
         if (unitstage.unit != null) {
             int amount = unitstage.unit.btnContainer.childCount;
@@ -37,7 +37,9 @@ public class ButtonPickUpAnswer : MonoBehaviour
                         btn.onClick.RemoveAllListeners();
                         Vector3 pos = unitstage.unit.btnContainer.GetChild(i).transform.localPosition;
                         btn.transform.DOMove(pos, 0);
-                        btn.onClick.AddListener(delegate { SetupBtn(unitstage, 1); });
+                        int result = unitstage.unit.GetResult(i);
+                        Debug.Log(result);
+                        btn.onClick.AddListener(delegate { SetupBtn(unitstage, result); });
                         btns.Add(btn);
                     }
                 }
@@ -45,10 +47,10 @@ public class ButtonPickUpAnswer : MonoBehaviour
         }
         UnactiveBtn();
     }
-    void SetupBtn(UnitStage unitStage, int index)
+    void SetupBtn(UnitStage unitStage, int result)
     {
-        PlayerPrefs.SetInt("PickUpCulprit", index);
-        Debug.Log("index: " + index);
+        PlayerPrefs.SetInt("PickUpCulprit", result);
+        Debug.Log("index: " + result);
         if (unitStage != null && unitStage.unit != null)
         {
             if (unitStage.unit.IsWin(PlayerPrefs.GetInt("PickUpCulprit")))
@@ -62,6 +64,7 @@ public class ButtonPickUpAnswer : MonoBehaviour
     {
         foreach(Button btn in btns)
         {
+            Debug.Log("run");
             btn.gameObject.SetActive(true);
         }
 

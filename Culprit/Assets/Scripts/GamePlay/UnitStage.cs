@@ -18,7 +18,11 @@ public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpe
     public int _index;
     public bool _isPass;
     public bool _isOpen;
+
+
     public Unit unit;
+
+    public Text level;
     public Image unitImage;
     public Sprite[] sprites;
     // not change
@@ -31,6 +35,7 @@ public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpe
         //    unit.gameObject.SetActive(false);
         //}
         if (unitImage == null) unitImage = GetComponent<Image>();
+        if (level == null) level = GetComponentInChildren<Text>();
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -84,6 +89,7 @@ public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpe
     public void LoadUnit(Unit unit)
     {
         this.unit = unit;
+        level.text = (_index + 1).ToString();
         unit.gameObject.SetActive(false);
     }
     public void SetUpCamera()
