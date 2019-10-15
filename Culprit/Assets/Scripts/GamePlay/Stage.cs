@@ -48,15 +48,12 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     #region
     public void PickUnitStage(UnitStage unitstage)
     {
+        Debug.Log("run");
         if (unitstage != null && unitstage.unit != null)
         {
             // HideAll(unitstage);
-            unitstage.Open();
             unitstage.ShowStage();
-            unitstage.SetUpCamera();
         }
-        //  StageManager.instance.SetupBtn(2);
-        //  CameraFollow.instance.GetTarget(unitstage.unit.getCamera);
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -131,9 +128,14 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
 
     public void LoadUnit(Unit[] units)
     {
-        for (int i = 0; i < units.Length && i < _unitList.Length; i++)
+        int i = 0;
+        for (; i < units.Length && i < _unitList.Length; i++)
         {
             _unitList[i].LoadUnit(units[i]);
+        }
+        for (; i < _unitList.Length; i++)
+        {
+            _unitList[i].gameObject.SetActive(false);
         }
     }
     // Onvalidate

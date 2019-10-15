@@ -5,16 +5,20 @@ using UnityEngine.UI;
 public class ButtonStageManager : MonoBehaviour
 {
     public static ButtonStageManager instance;
+    public ButtonPickUpAnswer btnPickup;
     public Camera mainCam;
     public Camera subCamm_1;
-    public GameObject btn1;
-    public GameObject btn2;
     public GameObject _winPopup;
     public GameObject _losePopup;
     public UnitStage unitStage;
     private void Awake()
     {
         if (instance == null) instance = this;
+        
+    }
+    private void OnValidate()
+    {
+        if (btnPickup == null) btnPickup = FindObjectOfType<ButtonPickUpAnswer>();
     }
     public void TurnOn_MainCam()
     {
@@ -34,53 +38,24 @@ public class ButtonStageManager : MonoBehaviour
         this.unitStage = unit;
         subCamm_1.gameObject.SetActive(true);
         mainCam.gameObject.SetActive(false);
+        btnPickup.AddBtns(unit, subCamm_1);
     }
-    public void Pickup_1()
-    {
-        PlayerPrefs.SetInt("PickUpCulprit", 0);
-        if (unitStage != null && unitStage.unit != null)
-        {
-            if (unitStage.unit.IsWin(PlayerPrefs.GetInt("PickUpCulprit")))
-            {
+    // Active and Unactive BtnAsk
+    #region
 
-            }
-        }
-        UnactiveBtn();
-    }
-    public void Pickup_2()
-    {
-        PlayerPrefs.SetInt("PickUpCulprit", 1);
-        if (unitStage != null && unitStage.unit != null)
-        {
-            if (unitStage.unit.IsWin(PlayerPrefs.GetInt("PickUpCulprit")))
-            {
-            }
-        }
-        UnactiveBtn();
-    }
     public void ActivePickupBtn()
     {
-        btn1.SetActive(true);
-        btn2.SetActive(true);
+        btnPickup.ActivePickupBtn();
 
     }
     public void UnactiveBtn()
     {
-        btn1.SetActive(false);
-        btn2.SetActive(false);
+        btnPickup.UnactiveBtn();
     }
+    #endregion
+    // Button Next Try of Popup
+    #region
 
-    public void ShowPopup(Unit unit)
-    {
-        if (unit.isWin)
-        {
-            TurnOnWinPopup();
-        }
-        else
-        {
-            TurnOnLosePopup();
-        }
-    }
     public void Try()
     {
         TurnOffPopup();
@@ -92,8 +67,20 @@ public class ButtonStageManager : MonoBehaviour
         if (StageManager.instance != null)
             StageManager.instance.NextLevel(unitStage);
     }
+    #endregion
     // Popup
     #region
+    public void ShowPopup(Unit unit)
+    {
+        if (unit.isWin)
+        {
+            TurnOnWinPopup();
+        }
+        else
+        {
+            TurnOnLosePopup();
+        }
+    }
     public void TurnOffPopup()
     {
         _losePopup.SetActive(false);

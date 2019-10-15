@@ -45,7 +45,7 @@ public class StageManager : MonoBehaviour, IShowStage
                 {
                     Stage nextStage = _stageList[cur.unit.indexStage + 1];
                     curUnitStage = nextStage.GetUnitStage(0);
-                    if(curUnitStage != null)
+                    if (curUnitStage != null)
                     {
                         HideAll(nextStage);
                         nextStage.ShowStage();
@@ -114,6 +114,7 @@ public class StageManager : MonoBehaviour, IShowStage
     public void LoadUnit(Unit[] unitList)
     {
         List<List<Unit>> list = new List<List<Unit>>();
+        bool check = false;
         for (int i = 0; i < _stageList.Length; i++)
         {
             List<Unit> _list = new List<Unit>();
@@ -121,14 +122,24 @@ public class StageManager : MonoBehaviour, IShowStage
             {
                 if (unitList[j].indexStage == i)
                 {
+                    check = true;
                     _list.Add(unitList[j]);
                 }
             }
-            list.Add(_list);
+            if (check)
+            {
+                list.Add(_list);
+                check = false;
+            }
         }
-        for (int i = 0; i < _stageList.Length && i < list.Count; i++)
+        int k = 0;
+        for (; k < _stageList.Length && k < list.Count; k++)
         {
-            _stageList[i].LoadUnit(list[i].ToArray());
+            _stageList[k].LoadUnit(list[k].ToArray());
+        }
+        for (; k < _stageList.Length; k++)
+        {
+            _stageList[k].gameObject.SetActive(false);
         }
     }
     private void OnValidate()

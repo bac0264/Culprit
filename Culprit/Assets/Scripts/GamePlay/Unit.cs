@@ -47,6 +47,7 @@ public class Unit : MonoBehaviour
     }
     public bool IsWin(int index)
     {
+        Debug.Log("index: " + index);
         for (int i = 0; i < results.Count; i++)
         {
             if (results[i] == index)

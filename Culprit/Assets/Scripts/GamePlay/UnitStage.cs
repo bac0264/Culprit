@@ -46,7 +46,7 @@ public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpe
     public void ShowStage()
     {
         Open();
-      //  ShowStage();
+        //  ShowStage();
         SetUpCamera();
     }
     // Open & Hide unit
@@ -61,7 +61,8 @@ public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpe
         }
     }
     // Hide unit
-    public void Open() {
+    public void Open()
+    {
         if (unit != null)
         {
             unit.gameObject.SetActive(true);
@@ -73,8 +74,11 @@ public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpe
     }
     public void ActiveUnitStage()
     {
-        gameObject.SetActive(true);
-        Hide();
+        if (unit != null)
+        {
+            gameObject.SetActive(true);
+            Hide();
+        }
     }
     #endregion
     public void LoadUnit(Unit unit)
