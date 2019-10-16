@@ -36,12 +36,12 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void Win()
+    public void Lose()
     {
         ani.Play("result_lose");
     }
 
-    public void Lose()
+    public void Win()
     {
         ani.Play("result_win");
     }

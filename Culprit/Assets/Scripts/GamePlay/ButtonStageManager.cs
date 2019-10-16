@@ -83,23 +83,43 @@ public class ButtonStageManager : MonoBehaviour
     }
     public void TurnOffPopup()
     {
-        _losePopup.SetActive(false);
-        _winPopup.SetActive(false);
+        if (LosePopup.instance != null && WinPopup.instance != null)
+        {
+            LosePopup.instance.HidePopup();
+            WinPopup.instance.HidePopup();
+        }
+        //_losePopup.SetActive(false);
+        //_winPopup.SetActive(false);
     }
     public void TurnOnPopup()
     {
-        _losePopup.SetActive(true);
-        _winPopup.SetActive(true);
+        if (LosePopup.instance != null && WinPopup.instance != null)
+        {
+            LosePopup.instance.ShowPopup();
+            WinPopup.instance.ShowPopup();
+        }
+        //_losePopup.SetActive(true);
+        //_winPopup.SetActive(true);
     }
     public void TurnOnWinPopup()
     {
-        _losePopup.SetActive(false);
-        _winPopup.SetActive(true);
+        if (LosePopup.instance != null && WinPopup.instance != null)
+        {
+            LosePopup.instance.HidePopup();
+            WinPopup.instance.ShowPopup();
+        }
+        //_losePopup.SetActive(false);
+        //_winPopup.SetActive(true);
     }
     public void TurnOnLosePopup()
     {
-        _losePopup.SetActive(true);
-        _winPopup.SetActive(false);
+        if (LosePopup.instance != null && WinPopup.instance != null)
+        {
+            LosePopup.instance.ShowPopup();
+            WinPopup.instance.HidePopup();
+        }
+        //_losePopup.SetActive(true);
+        //_winPopup.SetActive(false);
     }
     #endregion
 }

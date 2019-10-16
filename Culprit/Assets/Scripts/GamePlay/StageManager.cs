@@ -23,7 +23,7 @@ public class StageManager : MonoBehaviour, IShowStage
         for (int i = 0; i < _stageList.Length; i++)
         {
             _stageList[i].index = i;
-            _stageList[i].stageText.text = "Stage " + i;
+            _stageList[i].stageText.text = "Stage " + (i + 1);
             _stageList[i].HideAllUnitStage();
         }
     }

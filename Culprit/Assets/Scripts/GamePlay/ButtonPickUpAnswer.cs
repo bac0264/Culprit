@@ -40,6 +40,7 @@ public class ButtonPickUpAnswer : MonoBehaviour
                         int result = unitstage.unit.GetResult(i);
                         Debug.Log(result);
                         btn.onClick.AddListener(delegate { SetupBtn(unitstage, result); });
+                        btn.transform.GetChild(0).GetComponent<Text>().text = (i + 1).ToString();
                         btns.Add(btn);
                     }
                 }
