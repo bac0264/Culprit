@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/PC/Desktop/Culprit/demo.apk
+C:/Users/PC/Desktop/Culprit/20191016.apk
 SceneListBegin?
 Assets/Scenes/Menu.unity
 Assets/Scenes/Stages.unity
@@ -117,7 +117,7 @@ b8b6652c91ec156e4590d6a8f7eff3be Assembly-CSharp.dll:Spine.Unity.Examples.Skelet
 158ffb543d45ff9010f242d7a12154b7 Assembly-CSharp.dll:Spine.Unity.Examples.SpineboyBeginnerModel
 c1ad774a13e1aaf51a016b1fe53f9285 Assembly-CSharp.dll:EnhancedScrollerDemos.NestedScrollers.Controller
 e0978a597b621db4180557fb5e5cd19e Assembly-CSharp.dll:Spine.Unity.Examples.SpineboyBeginnerInput
-9c8eb3f2588035497c13a9acbf6ee2fe Assembly-CSharp.dll:.ButtonStageManager
+94c968af5c4763dceb657a8e6d705c1a Assembly-CSharp.dll:.ButtonStageManager
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 780e8f682b3221346c034a6712a0fd25 UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -130,7 +130,7 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-452a8fbe590bd5b03f3cea807a153639 Assembly-CSharp.dll:.UnitStage
+9052f3fc0b4cd00f6eb8b4d13c80cff3 Assembly-CSharp.dll:.UnitStage
 6f80b1daa5d16f4ff7facb83d99c5f37 Assembly-CSharp.dll:.StageManager
 3ca8b3aece97a53f8bdb40aa5b3120de Assembly-CSharp.dll:Spine.Unity.Examples.AttackSpineboy
 00274a21279f5cb831ce20f895049e38 Unity.TextMeshPro.dll:TMPro.TMP_SubMeshUI
@@ -174,7 +174,7 @@ cd48a96ab167746b0145cf24a3342daf spine-unity.dll:Spine.Unity.Deprecated.SlotBlen
 e3da11fd14aedb8d52902c3d6a9a8c8b Assembly-CSharp.dll:EnhancedScrollerDemos.PullDownRefresh.Controller
 c04515f856b22326b0388afe45e15788 Assembly-CSharp.dll:.PickStageManager
 f88f1f68835078ed72af8f56c1b91d57 Assembly-CSharp.dll:Spine.Unity.Examples.SpineboyTargetController
-75bdb0b7088e84fa697aafbd9a082791 Assembly-CSharp.dll:.Unit
+7b56d6a74dadc1b2fcde9e8117af0b06 Assembly-CSharp.dll:.Unit
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 601112efbb6ea9a5d557ad1b4ccf9be5 Assembly-CSharp.dll:Spine.Unity.Examples.CombinedSkin
 eccbf148fbfe3f8997fb681d9ad73f14 Assembly-CSharp.dll:.PickUnitStageManager
@@ -293,3 +293,6 @@ a2f22d316752a4848d2b704a30108cd3 Assembly-CSharp.dll:EnhancedScrollerDemos.GridS
 4ab9c6ef5ed7f2e061a3f9c9ff1bfa52 Assembly-CSharp.dll:Spine.Unity.Examples.DataAssetsFromExportsExample
 56d17491528e4d51843ee07dcd40e54d Assembly-CSharp.dll:EnhancedScrollerDemos.SnappingDemo.SlotCellView
 cb770e522f325326d70ac09172fa5a14 Assembly-CSharp.dll:EnhancedScrollerDemos.CellEvents.Controller
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BasePopup
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.WinPopup
+1a43e3a83f1eeadad09614ec6d88702e Assembly-CSharp.dll:.LosePopup
