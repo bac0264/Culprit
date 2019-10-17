@@ -16,11 +16,11 @@ public class Unit : MonoBehaviour
     public bool isWin;
     private void OnValidate()
     {
-        if (ani == null) ani = GetComponent<Animator>();
+       if (ani == null) ani = GetComponent<Animator>();
         if (validate == 0)
         {
             validate = 1;
-            string[] _s = gameObject.name.Split(' ');
+            string[] _s = gameObject.name.Split('_');
             Debug.Log(_s[0]);
             Debug.Log(_s[1]);
             indexStage = Int32.Parse(_s[0]);
@@ -49,6 +49,8 @@ public class Unit : MonoBehaviour
     {
         if (index == 1)
         {
+            Debug.Log("run");
+            Debug.Log(ani);
             Win();
             isWin = true;
             return true;

@@ -8,8 +8,6 @@ public class ButtonStageManager : MonoBehaviour
     public ButtonPickUpAnswer btnPickup;
     public Camera mainCam;
     public Camera subCamm_1;
-    public GameObject _winPopup;
-    public GameObject _losePopup;
     public UnitStage unitStage;
     private void Awake()
     {
@@ -38,7 +36,7 @@ public class ButtonStageManager : MonoBehaviour
         this.unitStage = unit;
         subCamm_1.gameObject.SetActive(true);
         mainCam.gameObject.SetActive(false);
-        btnPickup.AddBtns(unit);
+        btnPickup.AddBtns(unitStage);
     }
     // Active and Unactive BtnAsk
     #region
@@ -88,8 +86,6 @@ public class ButtonStageManager : MonoBehaviour
             LosePopup.instance.HidePopup();
             WinPopup.instance.HidePopup();
         }
-        //_losePopup.SetActive(false);
-        //_winPopup.SetActive(false);
     }
     public void TurnOnPopup()
     {
@@ -98,8 +94,6 @@ public class ButtonStageManager : MonoBehaviour
             LosePopup.instance.ShowPopup();
             WinPopup.instance.ShowPopup();
         }
-        //_losePopup.SetActive(true);
-        //_winPopup.SetActive(true);
     }
     public void TurnOnWinPopup()
     {
@@ -108,8 +102,6 @@ public class ButtonStageManager : MonoBehaviour
             LosePopup.instance.HidePopup();
             WinPopup.instance.ShowPopup();
         }
-        //_losePopup.SetActive(false);
-        //_winPopup.SetActive(true);
     }
     public void TurnOnLosePopup()
     {
@@ -118,8 +110,6 @@ public class ButtonStageManager : MonoBehaviour
             LosePopup.instance.ShowPopup();
             WinPopup.instance.HidePopup();
         }
-        //_losePopup.SetActive(true);
-        //_winPopup.SetActive(false);
     }
     #endregion
 }

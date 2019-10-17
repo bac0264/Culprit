@@ -14,7 +14,6 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     public event Action<UnitStage> OnRightClickEvent;
     public event Action<Stage> OnRightClickStageEvent;
 
-
     public UnitStage[] _unitList;
 
     public Image stageImage;
@@ -31,7 +30,12 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     }
     public UnitStage GetUnitStage(int indexUnitStage)
     {
-        if ((indexUnitStage) < _unitList.Length) return _unitList[indexUnitStage];
+        if ((indexUnitStage) < _unitList.Length)
+        {
+            UnitStage unitStage = _unitList[indexUnitStage];
+            unitStage.unit = LoadUnitOnvalidate.instance.GetUnitFromResources(index, unitStage._index);
+            return unitStage;
+        }
         return null;
     }
     public UnitStage GetNextUnitStage(int indexUnitStage)
@@ -39,6 +43,7 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
         if ((indexUnitStage + 1) < _unitList.Length)
         {
             UnitStage unitStage = _unitList[indexUnitStage + 1];
+            unitStage.unit = LoadUnitOnvalidate.instance.GetUnitFromResources(index, unitStage._index);
             if (unitStage.unit != null) return unitStage;
             return null;
         }
@@ -49,10 +54,15 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     public void PickUnitStage(UnitStage unitstage)
     {
         Debug.Log("run");
-        if (unitstage != null && unitstage.unit != null)
+        if (unitstage != null)
         {
-            // HideAll(unitstage);
-            unitstage.ShowStage();
+            Unit unit = LoadUnitOnvalidate.instance.GetUnitFromResources(index, unitstage._index);
+            if (unit != null)
+            {
+                unitstage.LoadUnit(unit);
+                // HideAll(unitstage);
+                unitstage.ShowStage();
+            }
         }
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -114,8 +124,7 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     {
         foreach (UnitStage unit in _unitList)
         {
-            if (unit != null)
-                unit.UnactiveUnitStage();
+            unit.UnactiveUnitStage();
         }
         Open();
     }
@@ -127,22 +136,9 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
         StageManager.instance.SetupBtn(1);
     }
 
-    public void LoadUnit(Unit[] units)
-    {
-        int i = 0;
-        Debug.Log(units.Length);
-        for (; i < units.Length && i < _unitList.Length; i++)
-        {
-            _unitList[i].LoadUnit(units[i]);
-        }
-        for (; i < _unitList.Length; i++)
-        {
-            _unitList[i].unit = null;
-            _unitList[i].gameObject.SetActive(false);
-        }
-    }
     // Onvalidate
     #region
+    public Transform unitStageContainer;
     private void OnValidate()
     {
         if (_unitList.Length == 0)
@@ -156,5 +152,30 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
         if (stageText == null) stageText = transform.GetChild(1).GetComponent<Text>();
         if (stageImage == null) stageImage = GetComponent<Image>();
     }
+    public void LoadUnit(Unit[] units)
+    {
+        for(int g = 0; g < unitStageContainer.childCount; g++)
+        {
+            unitStageContainer.GetChild(g).gameObject.SetActive(true);
+        }
+        _unitList = GetComponentsInChildren<UnitStage>();
+        int i = 0;
+        for (; i < units.Length && i < _unitList.Length; i++)
+        {
+            _unitList[i].LoadUnitOnvalidate();
+        }
+        for (; i < _unitList.Length; i++)
+        {
+            _unitList[i].unit = null;
+            _unitList[i].gameObject.SetActive(false);
+        }
+        _unitList = GetComponentsInChildren<UnitStage>();
+        for (int k = 0; k < _unitList.Length; k++)
+        {
+            _unitList[k]._index = k;
+            _unitList[k].gameObject.SetActive(false);
+        }
+    }
     #endregion
+
 }

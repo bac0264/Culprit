@@ -33,6 +33,7 @@ public class StageManager : MonoBehaviour, IShowStage
         {
             Stage curStage = _stageList[cur.unit.indexStage];
             UnitStage curUnitStage = curStage.GetNextUnitStage(cur.unit.indexUnit);
+            // if unitstage belong to curStage -> show, else -> next stage
             if (curUnitStage != null)
             {
                 cur.Hide();
@@ -41,6 +42,7 @@ public class StageManager : MonoBehaviour, IShowStage
             }
             else
             {
+                // if nextstage exist -> get the first element.
                 if ((cur.unit.indexStage + 1) < _stageList.Length)
                 {
                     Stage nextStage = _stageList[cur.unit.indexStage + 1];
@@ -111,8 +113,27 @@ public class StageManager : MonoBehaviour, IShowStage
                 btns[i].gameObject.SetActive(false);
         }
     }
+    // Load Onvalidate
+    #region
+    private void OnValidate()
+    {
+        if (_stageList.Length == 0)
+        {
+            _stageList = GetComponentsInChildren<Stage>();
+            for (int i = 0; i < _stageList.Length; i++)
+            {
+                _stageList[i].index = i;
+                _stageList[i].HideAllUnitStage();
+            }
+        }
+    }
     public void LoadUnit(Unit[] unitList)
     {
+        for(int g = 0; g < transform.childCount; g++)
+        {
+            transform.GetChild(g).gameObject.SetActive(true);
+        }
+        _stageList = GetComponentsInChildren<Stage>();
         List<List<Unit>> list = new List<List<Unit>>();
         bool check = false;
         for (int i = 0; i < _stageList.Length; i++)
@@ -143,19 +164,7 @@ public class StageManager : MonoBehaviour, IShowStage
         }
         _stageList = GetComponentsInChildren<Stage>();
     }
-    private void OnValidate()
-    {
-        if (_stageList.Length == 0)
-        {
-            _stageList = GetComponentsInChildren<Stage>();
-            for (int i = 0; i < _stageList.Length; i++)
-            {
-                _stageList[i].index = i;
-                _stageList[i].HideAllUnitStage();
-            }
-        }
-    }
-
+    #endregion
     public void ShowStage()
     {
         throw new NotImplementedException();
