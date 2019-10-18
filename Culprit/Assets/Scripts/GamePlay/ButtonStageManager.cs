@@ -8,6 +8,7 @@ public class ButtonStageManager : MonoBehaviour
     public ButtonPickUpAnswer btnPickup;
     public Camera mainCam;
     public Camera subCamm_1;
+    public Stage stage;
     public UnitStage unitStage;
     private void Awake()
     {
@@ -37,6 +38,10 @@ public class ButtonStageManager : MonoBehaviour
         subCamm_1.gameObject.SetActive(true);
         mainCam.gameObject.SetActive(false);
         btnPickup.AddBtns(unitStage);
+    }
+    public void SetupStageContainer(Stage stage)
+    {
+        this.stage = stage;
     }
     // Active and Unactive BtnAsk
     #region

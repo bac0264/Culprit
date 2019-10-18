@@ -12,42 +12,23 @@ using UnityEngine.UI;
 public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
 {
     public event Action<UnitStage> OnRightClickEvent;
-    private const int Passed = 0;
-    private const int Next = 1;
-    private const int Default = 2;
+
+    private const int PASSED = 0;
+    private const int CURRENT = 1;
+    private const int HIDE = 2;
+    private Color defaultColor = new Color(1, 1, 1, 1);
+    private Color hide = new Color(1, 1, 1, 100f / 255f);
+
     public int _index;
     public bool _isPass;
     public bool _isOpen;
 
-
+    public SpriteUnitStageSO unitSprite;
     public Unit unit;
 
     public Text level;
     public Image unitImage;
     public Sprite[] sprites;
-    // not change
-    #region
-    private void OnValidate()
-    {
-        //if (unit == null)
-        //{
-        //    unit = GetComponentInChildren<Unit>();
-        //    unit.gameObject.SetActive(false);
-        //}
-        if (unitImage == null) unitImage = GetComponent<Image>();
-        if (level == null) level = GetComponentInChildren<Text>();
-    }
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData != null && eventData.button == PointerEventData.InputButton.Left)
-        {
-            if (OnRightClickEvent != null)
-            {
-                OnRightClickEvent(this);
-            }
-        }
-    }
-    #endregion
     public void ShowStage()
     {
         Open();
@@ -77,26 +58,75 @@ public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpe
     {
         gameObject.SetActive(false);
     }
-    public void ActiveUnitStage()
+    public void ActiveUnitStage(int indexStage)
     {
+        LoadImage(indexStage);
         gameObject.SetActive(true);
         Hide();
     }
     #endregion
+    public void LoadImage(int indexStage)
+    {
+        int curUnitStage = SaveLoadStageData.LoadDataStage(indexStage);
+        Debug.Log(curUnitStage);
+        if (_index < curUnitStage)
+        {
+            enabled = true;
+            level.color = defaultColor;
+            unitImage.color = defaultColor;
+            unitImage.sprite = unitSprite.GetSprite(PASSED);
+        }
+        else if (_index == curUnitStage)
+        {
+            enabled = true;
+            level.color = defaultColor;
+            unitImage.color = defaultColor;
+            unitImage.sprite = unitSprite.GetSprite(CURRENT);
+        }
+        else
+        {
+            enabled = false;
+            level.color = hide;
+            unitImage.color = hide;
+            unitImage.sprite = unitSprite.GetSprite(HIDE);
+        }
+    }
     public void LoadUnit(Unit unit)
     {
         this.unit = unit;
-        level.text = (_index + 1).ToString();
         unit.gameObject.SetActive(false);
-    }
-
-    public void LoadUnitOnvalidate()
-    {
-        this.gameObject.SetActive(true);
     }
     public void SetUpCamera()
     {
         if (ButtonStageManager.instance != null)
             ButtonStageManager.instance.TurnOn_Subcam(this);
     }
+    // Onvalidate
+    #region
+    private void OnValidate()
+    {
+        //if (unit == null)
+        //{
+        //    unit = GetComponentInChildren<Unit>();
+        //    unit.gameObject.SetActive(false);
+        //}
+        if (unitImage == null) unitImage = GetComponent<Image>();
+        if (level == null) level = GetComponentInChildren<Text>();
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData != null && eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (OnRightClickEvent != null)
+            {
+                OnRightClickEvent(this);
+            }
+        }
+    }
+    public void LoadUnitOnvalidate()
+    {
+        level.text = (_index + 1).ToString();
+        this.gameObject.SetActive(true);
+    }
+    #endregion
 }

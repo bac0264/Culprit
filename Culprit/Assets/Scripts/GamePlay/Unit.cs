@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour
     public bool isWin;
     private void OnValidate()
     {
-       if (ani == null) ani = GetComponent<Animator>();
+        if (ani == null) ani = GetComponent<Animator>();
         if (validate == 0)
         {
             validate = 1;
@@ -49,8 +49,6 @@ public class Unit : MonoBehaviour
     {
         if (index == 1)
         {
-            Debug.Log("run");
-            Debug.Log(ani);
             Win();
             isWin = true;
             return true;
@@ -74,12 +72,24 @@ public class Unit : MonoBehaviour
     public void ActiveBtn()
     {
         if (ButtonStageManager.instance != null)
+        {
             ButtonStageManager.instance.ActivePickupBtn();
+        }
     }
     public void ShowPopup()
     {
         if (ButtonStageManager.instance != null)
             ButtonStageManager.instance.ShowPopup(this);
+    }
+    public void EventWin()
+    {
+        int curIndexUnit = SaveLoadStageData.LoadDataStage(indexStage);
+        if (curIndexUnit <= indexUnit)
+        {
+            Debug.Log("run");
+            SaveLoadStageData.SaveDataStage(indexStage, indexUnit + 1);
+            ButtonStageManager.instance.stage.LoadImageForAllUnitStage();
+        }
     }
     #endregion
 }

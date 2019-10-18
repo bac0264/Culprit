@@ -2,33 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[System.Serializable]
 public class SaveLoadStageData
 {
-    public static void SaveDataStage()
+    public static void SaveDataStage(int indexStage, int indexUnitStage)
     {
-        List<string> s = new List<string>();
-        // i is Stage
-        for (int i = 0; i < KeySave.STAGE_AMOUNT; i++)
-        {
-            s.Add(i + "," + PlayerPrefs.GetFloat(GetIndexUnitStage(i)));
-        }
+        Debug.Log("string save: " + GetIndexUnitStage(indexStage));
+        Debug.Log("value save: " + PlayerPrefs.GetInt(GetIndexUnitStage(indexStage)));
+        PlayerPrefs.SetInt(GetIndexUnitStage(indexStage), indexUnitStage);
     }
     public static string GetIndexUnitStage(int index)
     {
         return (KeySave.STAGE_DATA + index.ToString());
     }
-    public static void LoadDataStage()
+    public static int LoadDataStage(int indexStage)
     {
-        string[] s = PlayerPrefsX.GetStringArray(KeySave.STAGE_DATA);
-
-        for (int j = 0; j < s.Length; j++)
-        {
-            string[] ss = s[j].Split(',');
-            for(int i = 0; i < ss.Length; i++)
-            {
-
-            }
-        }
+        Debug.Log("string: " + GetIndexUnitStage(indexStage));
+        Debug.Log("value: " + PlayerPrefs.GetInt(GetIndexUnitStage(indexStage)));
+        return PlayerPrefs.GetInt(GetIndexUnitStage(indexStage));
     }
+
 }

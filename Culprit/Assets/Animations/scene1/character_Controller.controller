@@ -307,6 +307,13 @@ AnimationClip:
     intParameter: 0
     messageOptions: 1
   - time: 0.6667
+    functionName: male_scream
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.6667
     functionName: bottle_fall
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -315,13 +322,6 @@ AnimationClip:
     messageOptions: 1
   - time: 0.6667
     functionName: bottle_pop
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 1
-  - time: 0.6667
-    functionName: male_scream
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -432,6 +432,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
+  - time: 6.8166666
+    functionName: EventWin
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 7
     functionName: ShowPopup
     data: 

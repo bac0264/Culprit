@@ -56,7 +56,6 @@ public class ButtonPickUpAnswer : MonoBehaviour
         {
             if (unitStage.unit.IsWin(PlayerPrefs.GetInt("PickUpCulprit")))
             {
-                Debug.Log("index: " + PlayerPrefs.GetInt("PickUpCulprit"));
             }
         }
         UnactiveBtn();

@@ -93,6 +93,8 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     }
     public void ShowStage()
     {
+        if (ButtonStageManager.instance != null)
+            ButtonStageManager.instance.SetupStageContainer(this);
         Hide();
         OpenAllUnitStage();
     }
@@ -117,7 +119,14 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     {
         foreach (UnitStage unit in _unitList)
         {
-            unit.ActiveUnitStage();
+            unit.ActiveUnitStage(index);
+        }
+    }
+    public void LoadImageForAllUnitStage()
+    {
+        foreach (UnitStage unit in _unitList)
+        {
+            unit.LoadImage(index);
         }
     }
     public void HideAllUnitStage()

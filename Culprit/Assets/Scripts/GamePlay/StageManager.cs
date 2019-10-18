@@ -134,6 +134,14 @@ public class StageManager : MonoBehaviour, IShowStage
             transform.GetChild(g).gameObject.SetActive(true);
         }
         _stageList = GetComponentsInChildren<Stage>();
+        //for (int g = 0; g < _stageList.Length; g++)
+        //{
+        //    Transform temp = _stageList[g].transform.GetChild(0);
+        //    for (int z = 0; z < temp.childCount; z++)
+        //    {
+        //        temp.GetChild(z).gameObject.SetActive(true);
+        //    }
+        //}
         List<List<Unit>> list = new List<List<Unit>>();
         bool check = false;
         for (int i = 0; i < _stageList.Length; i++)
