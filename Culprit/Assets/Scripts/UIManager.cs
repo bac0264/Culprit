@@ -10,4 +10,12 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Stages");
     }
+    public void ClickDaily()
+    {
+        DailyManager.instance.gameObject.SetActive(true);
+    }
+    public void ExitDaily()
+    {
+        DailyManager.instance.gameObject.SetActive(false);
+    }
 }

@@ -7,6 +7,12 @@ public class ResourceStat
     public float value;
     public TypeOfResource Type;
 
+    public ResourceStat(float value, TypeOfResource Type)
+    {
+        this.value = value;
+        this.Type = Type;
+    }
+
     public void AddValue(float value)
     {
         if (value > 0)

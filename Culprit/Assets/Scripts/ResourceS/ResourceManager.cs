@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager instance;
 
-    public ResourceStat[] Resources;
+    public List<ResourceStat> Resources;
 
     private void Awake()
     {
@@ -15,21 +16,32 @@ public class ResourceManager : MonoBehaviour
     public void LoadResource()
     {
         // TO DO somethin....
-        if (Resources.Length > 0)
+        string[] s = PlayerPrefsX.GetStringArray(KeySave.ALL_RESOURCE);
+        for (int i = 0; i < s.Length; i++)
         {
-            foreach (ResourceStat resource in Resources)
+            string[] temp = s[i].Split(',');
+            if (temp.Length > 0 && temp.Length < 2)
             {
-                Debug.Log((int)resource.Type.type);
+                TypeOfResource type = new TypeOfResource
+                {
+                    type = (TypeOfResource.Type)int.Parse(temp[0])
+                };
+                float.TryParse(temp[1], out float value);
+                ResourceStat resource = new ResourceStat(value, type);
+                Resources.Add(resource);
             }
         }
     }
     public void SaveResouce()
     {
         // TO DO somethin....
+        List<string> s = new List<string>();
         foreach (ResourceStat resource in Resources)
         {
-            Debug.Log(resource.Type.type + ", " + resource.value);
+            Debug.Log((int)resource.Type.type + ", " + resource.value);
+            s.Add((int)resource.Type.type + "," + resource.value);
         }
+        PlayerPrefsX.SetStringArray(KeySave.ALL_RESOURCE, s.ToArray());
     }
     public bool ReduceResourceNeed(TypeOfResource.Type type, float Value)
     {
@@ -37,6 +49,7 @@ public class ResourceManager : MonoBehaviour
         if (resourceNeed != null && Value > 0)
         {
             resourceNeed.ReduceValue(Value);
+            SaveResouce();
             return true;
         }
         return false;
@@ -47,42 +60,16 @@ public class ResourceManager : MonoBehaviour
         if (resourceNeed != null && Value > 0)
         {
             resourceNeed.AddValue(Value);
+            SaveResouce();
             return true;
         }
         return false;
     }
     public ResourceStat getResourceNeed(TypeOfResource.Type type)
     {
-        if ((int)type < Resources.Length)
+        if ((int)type < Resources.Count)
             return Resources[(int)type];
         return null;
     }
 
-    public void ReduceGold()
-    {
-        ResourceStat Gold = getResourceNeed(TypeOfResource.Type.Gold);
-        Debug.Log("Gold: " + Gold.value + ", " + Gold.Type.type);
-        Gold.ReduceValue(1);
-        Debug.Log("ReduceGold: " + Resources[(int)TypeOfResource.Type.Gold].value + ", "
-            + Resources[(int)TypeOfResource.Type.Gold].Type.type);
-        SaveResouce();
-    }
-    public void ReduceGem()
-    {
-        ResourceStat Gem = getResourceNeed(TypeOfResource.Type.Gem);
-        Debug.Log("Gold: " + Gem.value + ", " + Gem.Type.type);
-        Gem.ReduceValue(1);
-        Debug.Log("ReduceGold: " + Resources[(int)TypeOfResource.Type.Gem].value + ", "
-            + Resources[(int)TypeOfResource.Type.Gem].Type.type);
-        SaveResouce();
-    }
-    public void ReduceExp()
-    {
-        ResourceStat Exp = getResourceNeed(TypeOfResource.Type.Exp);
-        Debug.Log("Gold: " + Exp.value + ", " + Exp.Type.type);
-        Exp.ReduceValue(1);
-        Debug.Log("ReduceGold: " + Resources[(int)TypeOfResource.Type.Exp].value + ", "
-            + Resources[(int)TypeOfResource.Type.Exp].Type.type);
-        SaveResouce();
-    }
 }

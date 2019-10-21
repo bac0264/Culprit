@@ -24,7 +24,6 @@ public class ButtonPickUpAnswer : MonoBehaviour
     {
         if (unitstage.unit != null) {
             int amount = unitstage.unit.btnContainer.childCount;
-            Debug.Log("amount: " + amount);
             if (amount > 0)
             {
                 btns.Clear();
@@ -38,7 +37,6 @@ public class ButtonPickUpAnswer : MonoBehaviour
                         Vector3 pos = unitstage.unit.btnContainer.GetChild(i).transform.localPosition;
                         btn.transform.DOMove(pos, 0);
                         int result = unitstage.unit.GetResult(i);
-                        Debug.Log(result);
                         btn.onClick.AddListener(delegate { SetupBtn(unitstage, result); });
                         btn.transform.GetChild(0).GetComponent<Text>().text = (i + 1).ToString();
                         btns.Add(btn);

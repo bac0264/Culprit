@@ -68,7 +68,6 @@ public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpe
     public void LoadImage(int indexStage)
     {
         int curUnitStage = SaveLoadStageData.LoadDataStage(indexStage);
-        Debug.Log(curUnitStage);
         if (_index < curUnitStage)
         {
             enabled = true;
