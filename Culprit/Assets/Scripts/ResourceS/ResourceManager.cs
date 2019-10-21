@@ -11,7 +11,13 @@ public class ResourceManager : MonoBehaviour
 
     private void Awake()
     {
-        LoadResource();
+        if (instance == null) instance = this;
+        if (!PlayerPrefs.HasKey("IsTheFirst"))
+        {
+            PlayerPrefs.SetInt("IsTheFirst", 0);
+        }
+        else
+            LoadResource();
     }
     public void LoadResource()
     {
@@ -20,15 +26,16 @@ public class ResourceManager : MonoBehaviour
         for (int i = 0; i < s.Length; i++)
         {
             string[] temp = s[i].Split(',');
-            if (temp.Length > 0 && temp.Length < 2)
+            Debug.Log(s[i].ToString());
+            if (temp.Length > 0 && temp.Length <= 2)
             {
                 TypeOfResource type = new TypeOfResource
                 {
                     type = (TypeOfResource.Type)int.Parse(temp[0])
                 };
                 float.TryParse(temp[1], out float value);
-                ResourceStat resource = new ResourceStat(value, type);
-                Resources.Add(resource);
+                ResourceStat resource = getResourceNeed(type.type);
+                resource.value = value;
             }
         }
     }

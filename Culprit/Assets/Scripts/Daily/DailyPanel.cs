@@ -72,7 +72,6 @@ public class DailyPanelSaveLoadData
         string[] s = PlayerPrefsX.GetStringArray(KeySave.DAILY_REWARD);
         for (int i = 0; i < s.Length && i < dailyPanel.slots.Length ; i++)
         {
-            Debug.Log(s[i].ToString());
             DailySlot slot = dailyPanel.slots[i];
             string[] temp = s[i].Split(',');
             for(int j = 0; j < temp.Length; j++)

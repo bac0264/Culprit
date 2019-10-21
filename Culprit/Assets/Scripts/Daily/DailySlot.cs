@@ -79,9 +79,9 @@ public class DailySlot : MonoBehaviour, IPointerClickHandler
         {
             ResourceManager.instance.AddResourceNeed(TypeOfResource.Type.Gold, price.Gold);
         }
-        if(ShowResource.instance != null)
+        if(MenuManager.instance != null)
         {
-            ShowResource.instance.Show();
+            MenuManager.instance.RefreshUI();
         }
     }
     public void DailyDisplay(int index)

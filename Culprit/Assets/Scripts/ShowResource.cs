@@ -2,23 +2,11 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class ShowResource : MonoBehaviour
+public class ShowResource
 {
-    public static ShowResource instance;
-
-    private void Awake()
+    public static void Show(Text ResourceText, ResourceStat resource)
     {
-        if (instance == null) instance = this;
-        Show();
-    }
-    public Text Gold;
-
-    public void Show()
-    {
-        if(ResourceManager.instance != null)
-        {
-            ResourceStat Gold = ResourceManager.instance.getResourceNeed(TypeOfResource.Type.Gold);
-            if (Gold != null) this.Gold.text = Gold.value.ToString();
-        }
+        if (resource != null)
+            ResourceText.text = resource.value.ToString();
     }
 }
