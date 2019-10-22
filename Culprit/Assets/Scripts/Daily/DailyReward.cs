@@ -38,9 +38,6 @@ public class DailyReward : MonoBehaviour
             // PlayerPrefs.SetString("FirstTimeDailyReward","done");
             int _old = PlayerPrefs.GetInt("_date");
             int _now = TimeManager.sharedInstance.getCurrentDateNow();
-
-            Debug.Log(_old);
-            Debug.Log(_now);
             //check if a day as passed
             if (_now > _old)
             {//day as passed
@@ -48,6 +45,7 @@ public class DailyReward : MonoBehaviour
                 if (DailyManager.instance != null && DailyManager.instance.NextReward())
                 {
                     rewardClicked();
+                    DailyManager.instance.dailyPanel.SaveData();
                 }
                 return;
             }
@@ -83,13 +81,18 @@ public class DailyReward : MonoBehaviour
             if (DailyManager.instance != null && DailyManager.instance.NextReward())
             {
                 rewardClicked();
+                DailyManager.instance.dailyPanel.SaveData();
             }
         }
         else
         {
             _timerComplete = false;
             _timerIsReady = true;
-            if (DailyManager.instance != null) DailyManager.instance.WaitForTimeToOpenReward();
+            if (DailyManager.instance != null)
+            {
+                DailyManager.instance.WaitForTimeToOpenReward();
+                DailyManager.instance.dailyPanel.SaveData();
+            }
         }
     }
 

@@ -6,8 +6,9 @@ using System;
 using Assets.Scripts.Interface;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using EnhancedScrollerDemos.SuperSimpleDemo;
 
-public class StageManager : MonoBehaviour, IShowStage
+public class StageManager : MonoBehaviour
 {
     public static StageManager instance;
     public Stage[] _stageList;
@@ -16,16 +17,7 @@ public class StageManager : MonoBehaviour, IShowStage
     private void Awake()
     {
         if (instance == null) instance = this;
-        foreach (Stage stage in _stageList)
-        {
-            stage.OnRightClickStageEvent += OnRightClickStageEvent;
-        }
-        for (int i = 0; i < _stageList.Length; i++)
-        {
-            _stageList[i].index = i;
-            _stageList[i].stageText.text = "Stage " + (i + 1);
-            _stageList[i].HideAllUnitStage();
-        }
+
     }
     public void NextLevel(UnitStage cur)
     {
@@ -69,6 +61,7 @@ public class StageManager : MonoBehaviour, IShowStage
     #region
     public void PickStage(Stage Stage)
     {
+        Stage.LoadUnit();
         HideAll(Stage);
         Stage.ShowStage();
         SetupBtn(1);
@@ -115,28 +108,17 @@ public class StageManager : MonoBehaviour, IShowStage
     }
     // Load Onvalidate
     #region
-    private void OnValidate()
-    {
-        if (_stageList.Length == 0)
-        {
-            _stageList = GetComponentsInChildren<Stage>();
-            for (int i = 0; i < _stageList.Length; i++)
-            {
-                _stageList[i].index = i;
-                _stageList[i].HideAllUnitStage();
-            }
-        }
-    }
     public void LoadUnit(Unit[] unitList)
     {
-        for(int g = 0; g < transform.childCount; g++)
+        for (int g = 0; g < transform.childCount; g++)
         {
             transform.GetChild(g).gameObject.SetActive(true);
         }
         _stageList = GetComponentsInChildren<Stage>();
         List<List<Unit>> list = new List<List<Unit>>();
+        int amount = LoadUnitOnvalidate.instance.GetAmountStage();
         bool check = false;
-        for (int i = 0; i < _stageList.Length; i++)
+        for (int i = 0; i < amount; i++)
         {
             List<Unit> _list = new List<Unit>();
             for (int j = 0; j < unitList.Length; j++)
@@ -164,9 +146,15 @@ public class StageManager : MonoBehaviour, IShowStage
         }
         _stageList = GetComponentsInChildren<Stage>();
     }
-    #endregion
-    public void ShowStage()
+    public void SetupEvent()
     {
-        throw new NotImplementedException();
+        LoadUnit(LoadUnitOnvalidate.instance.unitList);
+        OnRightClickStageEvent += PickStage;
+        foreach (Stage stage in _stageList)
+        {
+            stage.OnRightClickStageEvent += OnRightClickStageEvent;
+        }
     }
+    #endregion
+
 }

@@ -45,7 +45,6 @@ public class ResourceManager : MonoBehaviour
         List<string> s = new List<string>();
         foreach (ResourceStat resource in Resources)
         {
-            Debug.Log((int)resource.Type.type + ", " + resource.value);
             s.Add((int)resource.Type.type + "," + resource.value);
         }
         PlayerPrefsX.SetStringArray(KeySave.ALL_RESOURCE, s.ToArray());

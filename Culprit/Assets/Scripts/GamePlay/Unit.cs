@@ -59,7 +59,7 @@ public class Unit : MonoBehaviour
     }
     public int GetResult(int btnIndex)
     {
-        if (btnIndex < 0 || AskBtns.Count == 0 || btnIndex > AskBtns.Count) return 0;
+        if (btnIndex < 0 || AskBtns.Count == 0 || btnIndex >= AskBtns.Count) return 0;
         return results[btnIndex];
     }
     //public Transform[] GetAskBtns()

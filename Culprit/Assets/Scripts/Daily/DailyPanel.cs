@@ -23,6 +23,10 @@ public class DailyPanel : MonoBehaviour
             }
         }
     }
+    private void OnDisable()
+    {
+        SaveData();
+    }
     private void Start()
     {
         for (int i = 0; i < slots.Length; i++)
@@ -52,11 +56,11 @@ public class DailyPanel : MonoBehaviour
     {
         foreach (DailySlot daily in slots)
         {
-            if (daily.IsRecieve) return false;
+            if (!daily.IsRecieve) return false;
         }
         return true;
     }
-    public DailySlot getNextSlot(int index)
+    public DailySlot getSlot(int index)
     {
         if (index >= slots.Length || index < 0) return null;
         return slots[index];
@@ -92,7 +96,6 @@ public class DailyPanelSaveLoadData
             s.Add(dailySlot.ID.ToString()+","+
                      dailySlot.IsOpen.ToString()+","
                     + dailySlot.IsRecieve.ToString());
-            Debug.Log(s[i].ToString());
             i++;
         }
         PlayerPrefsX.SetStringArray(KeySave.DAILY_REWARD, s.ToArray());

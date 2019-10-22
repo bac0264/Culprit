@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.GamePlay;
 using EnhancedUI.EnhancedScroller;
-using EnhancedScrollerDemos.CellEvents;
 using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Assets.Scripts.Interface;
+using EnhancedScrollerDemos.SuperSimpleDemo;
 
 public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
 {
@@ -20,13 +20,17 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     public Text stageText;
 
     public int index;
-    private void Start()
-    {
-        foreach (UnitStage unit in _unitList)
-        {
-            unit.OnRightClickEvent += OnRightClickEvent;
-        }
+    public int amountOfUnitStage;
 
+    private void Awake()
+    {
+        if (unitStageContainer == null) unitStageContainer = GameObject.FindWithTag("UnitContainer").transform;
+    }
+    public override void SetData(Data data)
+    {
+        base.SetData(data);
+        index = data.index;
+        amountOfUnitStage = data.amountUnitStage;
     }
     public UnitStage GetUnitStage(int indexUnitStage)
     {
@@ -69,8 +73,9 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     {
         if (eventData != null && eventData.button == PointerEventData.InputButton.Left)
         {
-            if (OnRightClickEvent != null)
+            if (OnRightClickStageEvent != null)
             {
+                Debug.Log(this);
                 OnRightClickStageEvent(this);
             }
         }
@@ -150,41 +155,50 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     public Transform unitStageContainer;
     private void OnValidate()
     {
-        if (_unitList.Length == 0)
-        {
-            _unitList = GetComponentsInChildren<UnitStage>();
-            for (int i = 0; i < _unitList.Length; i++)
-            {
-                _unitList[i]._index = i;
-            }
-        }
         if (stageText == null) stageText = transform.GetChild(1).GetComponent<Text>();
         if (stageImage == null) stageImage = GetComponent<Image>();
     }
     public void LoadUnit(Unit[] units)
     {
-        for(int g = 0; g < unitStageContainer.childCount; g++)
+        //for(int g = 0; g < unitStageContainer.childCount; g++)
+        //{
+        //    unitStageContainer.GetChild(g).gameObject.SetActive(true);
+        //}
+        //_unitList = GetComponentsInChildren<UnitStage>();
+        //int i = 0;
+        //for (; i < units.Length && i < _unitList.Length; i++)
+        //{
+        //    _unitList[i].LoadUnitOnvalidate();
+        //}
+        //for (; i < _unitList.Length; i++)
+        //{
+        //    _unitList[i].unit = null;
+        //    _unitList[i].gameObject.SetActive(false);
+        //}
+        //_unitList = GetComponentsInChildren<UnitStage>();
+        //for (int k = 0; k < _unitList.Length; k++)
+        //{
+        //    _unitList[k]._index = k;
+        //    _unitList[k].gameObject.SetActive(false);
+        //}
+    }
+    #endregion
+    public void LoadUnit()
+    {
+        for (int g = 0; g < unitStageContainer.childCount && g < amountOfUnitStage; g++)
         {
             unitStageContainer.GetChild(g).gameObject.SetActive(true);
         }
-        _unitList = GetComponentsInChildren<UnitStage>();
-        int i = 0;
-        for (; i < units.Length && i < _unitList.Length; i++)
+        _unitList = unitStageContainer.GetComponentsInChildren<UnitStage>();
+        SetupEvent();
+    }
+    public void SetupEvent()
+    {
+        OnRightClickEvent += PickUnitStage;
+        foreach (UnitStage unit in _unitList)
         {
-            _unitList[i].LoadUnitOnvalidate();
-        }
-        for (; i < _unitList.Length; i++)
-        {
-            _unitList[i].unit = null;
-            _unitList[i].gameObject.SetActive(false);
-        }
-        _unitList = GetComponentsInChildren<UnitStage>();
-        for (int k = 0; k < _unitList.Length; k++)
-        {
-            _unitList[k]._index = k;
-            _unitList[k].gameObject.SetActive(false);
+            unit.OnRightClickEvent += OnRightClickEvent;
         }
     }
-    #endregion
 
 }

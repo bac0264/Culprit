@@ -1314,14 +1314,15 @@ namespace EnhancedUI.EnhancedScroller
             var dataIndex = cellIndex % NumberOfCells;
             // request a cell view from the delegate
             var cellView = _delegate.GetCellView(this, dataIndex, cellIndex);
+
             // set the cell's properties
             cellView.cellIndex = cellIndex;
             cellView.dataIndex = dataIndex;
             cellView.active = true;
 
             // add the cell view to the active container
-            //cellView.transform.SetParent(_container, false);
-            //cellView.transform.localScale = Vector3.one;
+            cellView.transform.SetParent(_container, false);
+            cellView.transform.localScale = Vector3.one;
 
             // add a layout element to the cellView
             LayoutElement layoutElement = cellView.GetComponent<LayoutElement>();

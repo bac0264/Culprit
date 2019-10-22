@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.GamePlay;
 using Assets.Scripts.Interface;
-using EnhancedScrollerDemos.CellEvents;
+using EnhancedScrollerDemos.SuperSimpleDemo;
 using EnhancedUI.EnhancedScroller;
 using System;
 using System.Collections;
@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
+public class UnitStage : MonoBehaviour, IShowStage, IPointerClickHandler, IHide, IOpen
 {
     public event Action<UnitStage> OnRightClickEvent;
 
@@ -28,7 +28,6 @@ public class UnitStage : CellView, IShowStage, IPointerClickHandler, IHide, IOpe
 
     public Text level;
     public Image unitImage;
-    public Sprite[] sprites;
     public void ShowStage()
     {
         Open();

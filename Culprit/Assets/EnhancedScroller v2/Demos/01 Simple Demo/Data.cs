@@ -3,8 +3,11 @@
     /// <summary>
     /// Super simple data class to hold information for each cell.
     /// </summary>
+    /// 
+    [System.Serializable]
     public class Data
     {
-        public string someText;
+        public int index;
+        public int amountUnitStage;
     }
 }

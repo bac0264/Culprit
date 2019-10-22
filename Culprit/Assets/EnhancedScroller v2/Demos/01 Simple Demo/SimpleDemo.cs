@@ -19,7 +19,9 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
         /// Internal representation of our data. Note that the scroller will never see
         /// this, so it separates the data from the layout using MVC principles.
         /// </summary>
-        private SmallList<Data> _data;
+        /// 
+        [SerializeField]
+        public SmallList<Data> _data;
 
         /// <summary>
         /// This is our scroller we will be a delegate for
@@ -49,36 +51,28 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
             // load in a large set of data
             LoadLargeData();
         }
-
         /// <summary>
         /// Populates the data with a lot of records
         /// </summary>
-        private void LoadLargeData()
+        public void LoadLargeData()
         {
+            int amount = LoadUnitOnvalidate.instance.GetAmountStage();
+            amount = 100;
             // set up some simple data
             _data = new SmallList<Data>();
-            for (var i = 0; i < 1000; i++)
-                _data.Add(new Data() { someText = "Cell Data Index " + i.ToString() });
-
+            for (var i = 0; i < amount; i++)
+            {   
+                int _amountUnitStage = LoadUnitOnvalidate.instance.GetAmountUnitStage(i);
+                _data.Add(new Data() { index = i, amountUnitStage = _amountUnitStage });
+            }
             // tell the scroller to reload now that we have the data
             scroller.ReloadData();
+            StageManager.instance.SetupEvent();
         }
 
         /// <summary>
         /// Populates the data with a small set of records
         /// </summary>
-        private void LoadSmallData()
-        {
-            // set up some simple data
-            _data = new SmallList<Data>();
-
-            _data.Add(new Data() { someText = "A" });
-            _data.Add(new Data() { someText = "B" });
-            _data.Add(new Data() { someText = "C" });
-
-            // tell the scroller to reload now that we have the data
-            scroller.ReloadData();
-        }
 
         #region UI Handlers
 
@@ -93,10 +87,10 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
         /// <summary>
         /// Button handler for the small data loader
         /// </summary>
-        public void LoadSmallDataButton_OnClick()
-        {
-            LoadSmallData();
-        }
+        //public void LoadSmallDataButton_OnClick()
+        //{
+        //    LoadSmallData();
+        //}
 
         #endregion
 
@@ -145,10 +139,10 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
             // set the name of the game object to the cell's data index.
             // this is optional, but it helps up debug the objects in 
             // the scene hierarchy.
-            //cellView.name = "Cell " + dataIndex.ToString();
+            cellView.name = "Cell " + dataIndex.ToString();
 
             // in this example, we just pass the data to our cell's view which will update its UI
-            //cellView.SetData(_data[dataIndex]);
+            cellView.SetData(_data[dataIndex]);
 
             // return the cell to the scroller
             return cellView;

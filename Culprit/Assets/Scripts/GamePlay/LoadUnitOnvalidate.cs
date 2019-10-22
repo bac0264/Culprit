@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using EnhancedScrollerDemos.SuperSimpleDemo;
 
 public class LoadUnitOnvalidate : MonoBehaviour
 {
@@ -22,9 +23,33 @@ public class LoadUnitOnvalidate : MonoBehaviour
             unitList = Resources.LoadAll<Unit>("Level");
             if (stageManager != null)
             {
-                stageManager.LoadUnit(unitList);
+              //  stageManager.LoadUnit(unitList);
             }
         }
+    }
+    public int GetAmountStage()
+    {
+        int max = 0;
+        for (int j = 0; j < unitList.Length; j++)
+        {
+            if (unitList[j].indexStage > max)
+            {
+                max = unitList[j].indexStage;
+            }
+        }
+        return (max + 1);
+    }
+    public int GetAmountUnitStage(int index)
+    {
+        int amount = 0;
+        for (int j = 0; j < unitList.Length; j++)
+        {
+            if (unitList[j].indexStage == index)
+            {
+                amount++;
+            }
+        }
+        return amount;
     }
     public Unit GetUnitFromResources(int indexStage, int indexUnitstage)
     {

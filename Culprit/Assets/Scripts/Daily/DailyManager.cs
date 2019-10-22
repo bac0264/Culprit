@@ -31,7 +31,6 @@ public class DailyManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         dailyPanel.OnRightClickEvent += RecieveReward;
-        dailyPanel.LoadData();
     }
     private void Start()
     {
@@ -53,6 +52,7 @@ public class DailyManager : MonoBehaviour
                 if (dailyPanel.IsRecieveAll())
                 {
                     IndexReward = -1;
+                    dailyPanel.Clear();
                     dailyReward._checktime();
                 }
             }
@@ -71,7 +71,7 @@ public class DailyManager : MonoBehaviour
         }
         else if (IndexReward == (dailyPanel.slots.Length - 1))
         {
-            DailySlot next = dailyPanel.getNextSlot(IndexReward);
+            DailySlot next = dailyPanel.getSlot(IndexReward);
             if (next != null)
             {
                 next.IsOpen = true;
@@ -81,14 +81,13 @@ public class DailyManager : MonoBehaviour
         }
         else
         {
-            DailySlot next = dailyPanel.getNextSlot(IndexReward);
+            DailySlot next = dailyPanel.getSlot(IndexReward);
             if (next != null)
             {
                 next.IsOpen = true;
-                IndexReward++;
-                return true;
             }
-            return false;
+            IndexReward++;
+            return true;
         }
     }
     public void WaitForTimeToOpenReward()
@@ -99,7 +98,7 @@ public class DailyManager : MonoBehaviour
         }
         else if (IndexReward >= 0 && IndexReward < (dailyPanel.slots.Length - 1))
         {
-            dailyPanel.getNextSlot(indexReward).IsOpen = false;
+            dailyPanel.getSlot(indexReward).IsOpen = false;
         }
         else
         {
@@ -133,9 +132,9 @@ public class DailyManager : MonoBehaviour
     //}
     //public void SetpositionProgress()
     //{
-    //    dailyPanel.getNextSlot(indexReward).IsOpen = false;
-    //    progress.transform.position = dailyPanel.getNextSlot(IndexReward).transform.position;
-    //    progress.transform.SetParent(dailyPanel.getNextSlot(IndexReward).transform);
+    //    dailyPanel.getSlot(indexReward).IsOpen = false;
+    //    progress.transform.position = dailyPanel.getSlot(IndexReward).transform.position;
+    //    progress.transform.SetParent(dailyPanel.getSlot(IndexReward).transform);
     //    progress.SetActive(true);
     //}
 }

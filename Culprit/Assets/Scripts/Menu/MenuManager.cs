@@ -13,11 +13,12 @@ public class MenuManager : MonoBehaviour
         if (instance == null) instance = this;
         if (!PlayerPrefs.HasKey(KeySave.IS_THE_FIRST_TIME))
         {
-
+            PlayerPrefs.SetInt(KeySave.IS_THE_FIRST_TIME, 0);
         }
         else
         {
-
+            if (DailyManager.instance != null)
+                DailyManager.instance.dailyPanel.LoadData();
         }
     }
     private void Start()
