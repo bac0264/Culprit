@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using EnhancedUI.EnhancedScroller;
+using System.Collections.Generic;
 
 namespace EnhancedScrollerDemos.SuperSimpleDemo
 {
@@ -21,7 +22,12 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
         public virtual void SetData(Data data)
         {
             // update the UI text with the cell data
-            someTextText.text = "Mode " +(data.index + 1).ToString();
+            someTextText.text = "Mode " +(data.indexStage + 1).ToString();
+        }
+        public virtual void SetData(List<Data> data)
+        {
+            // update the UI text with the cell data
+            //someTextText.text = "Mode " + (data.indexStage + 1).ToString();
         }
     }
 }

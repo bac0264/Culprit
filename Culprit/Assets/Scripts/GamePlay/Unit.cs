@@ -12,21 +12,16 @@ public class Unit : MonoBehaviour
     public List<int> results = new List<int>();
     public int indexStage;
     public int indexUnit;
-    public int validate = 0;
     public bool isWin;
     private void OnValidate()
     {
         if (ani == null) ani = GetComponent<Animator>();
-        if (validate == 0)
-        {
-            validate = 1;
-            string[] _s = gameObject.name.Split('_');
-            Debug.Log(_s[0]);
-            Debug.Log(_s[1]);
-            indexStage = Int32.Parse(_s[0]);
-            indexUnit = Int32.Parse(_s[1]);
-            //gameObject.SetActive(false);
-        }
+
+        string[] _s = gameObject.name.Split('_');
+        indexStage = Int32.Parse(_s[0]);
+        indexUnit = Int32.Parse(_s[1]);
+        //gameObject.SetActive(false);
+
         if (AskBtns.Count == 0)
         {
             for (int i = 0; i < btnContainer.childCount; i++)

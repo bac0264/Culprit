@@ -15,22 +15,22 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     public event Action<Stage> OnRightClickStageEvent;
 
     public UnitStage[] _unitList;
-
+    public BlockUnitStage[] _blockList;
     public Image stageImage;
     public Text stageText;
 
     public int index;
     public int amountOfUnitStage;
 
-    private void Awake()
-    {
-        if (unitStageContainer == null) unitStageContainer = GameObject.FindWithTag("UnitContainer").transform;
-    }
     public override void SetData(Data data)
     {
         base.SetData(data);
-        index = data.index;
-        amountOfUnitStage = data.amountUnitStage;
+        if (data is DataStage)
+        {
+            DataStage dataStage = data as DataStage;
+            index = dataStage.indexStage;
+            amountOfUnitStage = dataStage.amountUnitStage;
+        }
     }
     public UnitStage GetUnitStage(int indexUnitStage)
     {
@@ -58,9 +58,11 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     public void PickUnitStage(UnitStage unitstage)
     {
         Debug.Log("run");
+
         if (unitstage != null)
         {
             Unit unit = LoadUnitOnvalidate.instance.GetUnitFromResources(index, unitstage._index);
+            Debug.Log(unit.name);
             if (unit != null)
             {
                 unitstage.LoadUnit(unit);
@@ -75,7 +77,6 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
         {
             if (OnRightClickStageEvent != null)
             {
-                Debug.Log(this);
                 OnRightClickStageEvent(this);
             }
         }
@@ -101,7 +102,7 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
         if (ButtonStageManager.instance != null)
             ButtonStageManager.instance.SetupStageContainer(this);
         Hide();
-        OpenAllUnitStage();
+       // OpenAllUnitStage();
     }
 
     // Hide & Open Stage and unitStage
@@ -185,20 +186,49 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     #endregion
     public void LoadUnit()
     {
-        for (int g = 0; g < unitStageContainer.childCount && g < amountOfUnitStage; g++)
+        UnitEnhance unitEnhance = UnitEnhance.instance;
+        if (unitEnhance != null)
         {
-            unitStageContainer.GetChild(g).gameObject.SetActive(true);
+            unitEnhance.LoadData(amountOfUnitStage, index);
+            unitStageContainer = unitEnhance.scroller.GetContainer().transform;
+            unitStageContainer.gameObject.SetActive(true);
+
+            for (int g = 0; g < unitStageContainer.childCount /*&& g < amountOfUnitStage*/; g++)
+            {
+                unitStageContainer.GetChild(g).gameObject.SetActive(true);
+            }
+            //_unitList = unitStageContainer.GetComponentsInChildren<UnitStage>();
+            _blockList = unitStageContainer.GetComponentsInChildren<BlockUnitStage>();
+            SetupEvent();
         }
-        _unitList = unitStageContainer.GetComponentsInChildren<UnitStage>();
-        SetupEvent();
     }
     public void SetupEvent()
     {
         OnRightClickEvent += PickUnitStage;
-        foreach (UnitStage unit in _unitList)
+        //foreach (UnitStage unit in _unitList)
+        //{
+        //    unit.OnRightClickEvent += OnRightClickEvent;
+        //}
+        for(int i = 0; i < _blockList.Length; i++)
         {
-            unit.OnRightClickEvent += OnRightClickEvent;
+            for(int j = 0; j < _blockList[i].unitstageList.Length; j++)
+            {
+                _blockList[i].unitstageList[j].OnRightClickEvent += OnRightClickEvent;
+            }
         }
     }
-
+    public void RemoveEvents()
+    {
+        //foreach (UnitStage unit in _unitList)
+        //{
+        //    unit.OnRightClickEvent -= OnRightClickEvent;
+        //}
+        for (int i = 0; i < _blockList.Length; i++)
+        {
+            for (int j = 0; j < _blockList[i].unitstageList.Length; j++)
+            {
+                _blockList[i].unitstageList[j].OnRightClickEvent -= OnRightClickEvent;
+            }
+        }
+    }
 }

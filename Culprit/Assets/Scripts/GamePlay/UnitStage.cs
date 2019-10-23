@@ -1,10 +1,7 @@
 ﻿using Assets.Scripts.GamePlay;
 using Assets.Scripts.Interface;
 using EnhancedScrollerDemos.SuperSimpleDemo;
-using EnhancedUI.EnhancedScroller;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -28,6 +25,16 @@ public class UnitStage : MonoBehaviour, IShowStage, IPointerClickHandler, IHide,
 
     public Text level;
     public Image unitImage;
+    public void SetData(Data data)
+    {
+        if (data is DataUnitStage)
+        {
+            DataUnitStage dataUnitStage = data as DataUnitStage;
+            level.text = "Level " + (dataUnitStage.indexUnitStage + 1).ToString();
+            _index = dataUnitStage.indexUnitStage;
+            LoadImage(dataUnitStage.indexStage);
+        }
+    }
     public void ShowStage()
     {
         Open();
@@ -59,7 +66,6 @@ public class UnitStage : MonoBehaviour, IShowStage, IPointerClickHandler, IHide,
     }
     public void ActiveUnitStage(int indexStage)
     {
-        LoadImage(indexStage);
         gameObject.SetActive(true);
         Hide();
     }
@@ -67,6 +73,7 @@ public class UnitStage : MonoBehaviour, IShowStage, IPointerClickHandler, IHide,
     public void LoadImage(int indexStage)
     {
         int curUnitStage = SaveLoadStageData.LoadDataStage(indexStage);
+        Debug.Log("indexL " + _index);
         if (_index < curUnitStage)
         {
             enabled = true;

@@ -2,6 +2,7 @@
 using System.Collections;
 using EnhancedUI;
 using EnhancedUI.EnhancedScroller;
+using System.Collections.Generic;
 
 namespace EnhancedScrollerDemos.SuperSimpleDemo
 {
@@ -20,9 +21,8 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
         /// this, so it separates the data from the layout using MVC principles.
         /// </summary>
         /// 
-        [SerializeField]
         public SmallList<Data> _data;
-
+        public SmallList<List<Data>> _dataList;
         /// <summary>
         /// This is our scroller we will be a delegate for
         /// </summary>
@@ -43,31 +43,29 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
         /// In this example, we are calling our initializations in the delegate's Start function,
         /// but it could have been done later, perhaps in the Update function.
         /// </summary>
-        void Start()
+        public virtual void Start()
         {
             // tell the scroller that this script will be its delegate
             scroller.Delegate = this;
-
-            // load in a large set of data
             LoadLargeData();
         }
         /// <summary>
         /// Populates the data with a lot of records
         /// </summary>
-        public void LoadLargeData()
+        public virtual void LoadLargeData()
         {
-            int amount = LoadUnitOnvalidate.instance.GetAmountStage();
-            amount = 100;
-            // set up some simple data
-            _data = new SmallList<Data>();
-            for (var i = 0; i < amount; i++)
-            {   
-                int _amountUnitStage = LoadUnitOnvalidate.instance.GetAmountUnitStage(i);
-                _data.Add(new Data() { index = i, amountUnitStage = _amountUnitStage });
-            }
-            // tell the scroller to reload now that we have the data
-            scroller.ReloadData();
-            StageManager.instance.SetupEvent();
+         //   int amount = LoadUnitOnvalidate.instance.GetAmountStage();
+         ////   amount = 100;
+         //   // set up some simple data
+         //   _data = new SmallList<Data>();
+         //   for (var i = 0; i < amount; i++)
+         //   {   
+         //       int _amountUnitStage = LoadUnitOnvalidate.instance.GetAmountUnitStage(i);
+         //       _data.Add(new Data() { index = i, amountUnitStage = _amountUnitStage });
+         //   }
+         //   // tell the scroller to reload now that we have the data
+         //   scroller.ReloadData();
+         //   StageManager.instance.SetupEvent();
         }
 
         /// <summary>
@@ -104,6 +102,7 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
         public int GetNumberOfCells(EnhancedScroller scroller)
         {
             // in this example, we just pass the number of our data elements
+            if (_dataList != null) return _dataList.Count;
             return _data.Count;
         }
 
@@ -115,10 +114,10 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
         /// <param name="scroller">The scroller requesting the cell size</param>
         /// <param name="dataIndex">The index of the data that the scroller is requesting</param>
         /// <returns>The size of the cell</returns>
-        public float GetCellViewSize(EnhancedScroller scroller, int dataIndex)
+        public virtual float GetCellViewSize(EnhancedScroller scroller, int dataIndex)
         {
             // in this example, even numbered cells are 30 pixels tall, odd numbered cells are 100 pixels tall
-            return (dataIndex % 2 == 0 ? 30f : 100f);
+            return (dataIndex % 2 == 0 ? 200f : 200f);
         }
 
         /// <summary>
@@ -129,7 +128,7 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
         /// <param name="dataIndex">The index of the data that the scroller is requesting</param>
         /// <param name="cellIndex">The index of the list. This will likely be different from the dataIndex if the scroller is looping</param>
         /// <returns>The cell for the scroller to use</returns>
-        public EnhancedScrollerCellView GetCellView(EnhancedScroller scroller, int dataIndex, int cellIndex)
+        public virtual EnhancedScrollerCellView GetCellView(EnhancedScroller scroller, int dataIndex, int cellIndex)
         {
             // first, we get a cell from the scroller by passing a prefab.
             // if the scroller finds one it can recycle it will do so, otherwise

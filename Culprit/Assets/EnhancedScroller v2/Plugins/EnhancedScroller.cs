@@ -222,6 +222,7 @@ namespace EnhancedUI.EnhancedScroller
         /// <summary>
         /// The absolute position in pixels from the start of the scroller
         /// </summary>
+        ///
         public float ScrollPosition
         {
             get
@@ -253,7 +254,10 @@ namespace EnhancedUI.EnhancedScroller
                 }
             }
         }
-
+        public GameObject GetContainer()
+        {
+            return _container.gameObject;
+        }
         /// <summary>
         /// The size of the active cell view container minus the visibile portion
         /// of the scroller
@@ -1325,14 +1329,14 @@ namespace EnhancedUI.EnhancedScroller
             cellView.transform.localScale = Vector3.one;
 
             // add a layout element to the cellView
-            LayoutElement layoutElement = cellView.GetComponent<LayoutElement>();
-            if (layoutElement == null) layoutElement = cellView.gameObject.AddComponent<LayoutElement>();
+            //LayoutElement layoutElement = cellView.GetComponent<LayoutElement>();
+            //if (layoutElement == null) layoutElement = cellView.gameObject.AddComponent<LayoutElement>();
 
-            // set the size of the layout element
-            if (scrollDirection == ScrollDirectionEnum.Vertical)
-                layoutElement.minHeight = _cellViewSizeArray[cellIndex] - (cellIndex > 0 ? _layoutGroup.spacing : 0);
-            else
-                layoutElement.minWidth = _cellViewSizeArray[cellIndex] - (cellIndex > 0 ? _layoutGroup.spacing : 0);
+            //// set the size of the layout element
+            //if (scrollDirection == ScrollDirectionEnum.Vertical)
+            //    layoutElement.minHeight = _cellViewSizeArray[cellIndex] - (cellIndex > 0 ? _layoutGroup.spacing : 0);
+            //else
+            //    layoutElement.minWidth = _cellViewSizeArray[cellIndex] - (cellIndex > 0 ? _layoutGroup.spacing : 0);
 
             // add the cell to the active list
             if (listPosition == ListPositionEnum.First)
@@ -1484,10 +1488,12 @@ namespace EnhancedUI.EnhancedScroller
             }
 
             // Create a new active cell view container with a layout group
-            go = new GameObject("Container", typeof(RectTransform));
+            go = new GameObject(name + "Container", typeof(RectTransform));
             go.transform.SetParent(_scrollRectTransform);
             if (scrollDirection == ScrollDirectionEnum.Vertical)
+            {
                 go.AddComponent<VerticalLayoutGroup>();
+            }
             else
                 go.AddComponent<HorizontalLayoutGroup>();
             _container = go.GetComponent<RectTransform>();
@@ -1510,7 +1516,6 @@ namespace EnhancedUI.EnhancedScroller
             _container.localPosition = Vector3.zero;
             _container.localRotation = Quaternion.identity;
             _container.localScale = Vector3.one;
-
             _scrollRect.content = _container;
 
             // cache the scrollbar if it exists

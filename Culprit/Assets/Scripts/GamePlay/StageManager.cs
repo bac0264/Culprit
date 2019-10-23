@@ -14,10 +14,10 @@ public class StageManager : MonoBehaviour
     public Stage[] _stageList;
     public event Action<Stage> OnRightClickStageEvent;
     public Button[] btns;
+    public Stage curStage;
     private void Awake()
     {
         if (instance == null) instance = this;
-
     }
     public void NextLevel(UnitStage cur)
     {
@@ -61,10 +61,15 @@ public class StageManager : MonoBehaviour
     #region
     public void PickStage(Stage Stage)
     {
+        curStage = Stage;
         Stage.LoadUnit();
         HideAll(Stage);
         Stage.ShowStage();
         SetupBtn(1);
+        if (StageEnhance.instance != null)
+            StageEnhance.instance.scroller.GetContainer().SetActive(false);
+        if (UnitEnhance.instance != null)
+            UnitEnhance.instance.scroller.GetContainer().SetActive(true);
     }
     // Hide all Stage except picked Stage
     public void HideAll(Stage Stage)
@@ -87,8 +92,14 @@ public class StageManager : MonoBehaviour
     public void Back()
     {
         OpenAllStage();
+
         btns[0].gameObject.SetActive(true);
         btns[1].gameObject.SetActive(false);
+        if (curStage != null) curStage.RemoveEvents();
+        if (StageEnhance.instance != null)
+            StageEnhance.instance.scroller.GetContainer().SetActive(true);
+        if (UnitEnhance.instance != null)
+            UnitEnhance.instance.scroller.GetContainer().SetActive(false);
     }
     public void BackMenu()
     {
@@ -108,6 +119,8 @@ public class StageManager : MonoBehaviour
     }
     // Load Onvalidate
     #region
+    // Thread: Enhance Scroller create object attaching Stage Script -> Stage Manager get Stage array.
+    // Thread: When picking up Stage -> Show all unitStage ( get recycled ) -> Picking unitstage to load unit 
     public void LoadUnit(Unit[] unitList)
     {
         for (int g = 0; g < transform.childCount; g++)
@@ -115,36 +128,36 @@ public class StageManager : MonoBehaviour
             transform.GetChild(g).gameObject.SetActive(true);
         }
         _stageList = GetComponentsInChildren<Stage>();
-        List<List<Unit>> list = new List<List<Unit>>();
-        int amount = LoadUnitOnvalidate.instance.GetAmountStage();
-        bool check = false;
-        for (int i = 0; i < amount; i++)
-        {
-            List<Unit> _list = new List<Unit>();
-            for (int j = 0; j < unitList.Length; j++)
-            {
-                if (unitList[j].indexStage == i)
-                {
-                    check = true;
-                    _list.Add(unitList[j]);
-                }
-            }
-            if (check)
-            {
-                list.Add(_list);
-                check = false;
-            }
-        }
-        int k = 0;
-        for (; k < _stageList.Length && k < list.Count; k++)
-        {
-            _stageList[k].LoadUnit(list[k].ToArray());
-        }
-        for (; k < _stageList.Length; k++)
-        {
-            _stageList[k].gameObject.SetActive(false);
-        }
-        _stageList = GetComponentsInChildren<Stage>();
+        //List<List<Unit>> list = new List<List<Unit>>();
+        //int amount = LoadUnitOnvalidate.instance.GetAmountStage();
+        //bool check = false;
+        //for (int i = 0; i < amount; i++)
+        //{
+        //    List<Unit> _list = new List<Unit>();
+        //    for (int j = 0; j < unitList.Length; j++)
+        //    {
+        //        if (unitList[j].indexStage == i)
+        //        {
+        //            check = true;
+        //            _list.Add(unitList[j]);
+        //        }
+        //    }
+        //    if (check)
+        //    {
+        //        list.Add(_list);
+        //        check = false;
+        //    }
+        //}
+        //int k = 0;
+        //for (; k < _stageList.Length && k < list.Count; k++)
+        //{
+        //    _stageList[k].LoadUnit(list[k].ToArray());
+        //}
+        //for (; k < _stageList.Length; k++)
+        //{
+        //    _stageList[k].gameObject.SetActive(false);
+        //}
+        //_stageList = GetComponentsInChildren<Stage>();
     }
     public void SetupEvent()
     {

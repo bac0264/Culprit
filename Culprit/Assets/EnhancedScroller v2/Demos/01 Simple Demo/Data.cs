@@ -7,7 +7,14 @@
     [System.Serializable]
     public class Data
     {
-        public int index;
+        public int indexStage;
+    }
+    public class DataStage : Data
+    {
         public int amountUnitStage;
+    }
+    public class DataUnitStage : Data
+    {
+        public int indexUnitStage;
     }
 }
