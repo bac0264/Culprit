@@ -784,7 +784,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2038906446}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1251,7 +1251,7 @@ RectTransform:
   m_LocalScale: {x: 1.00032, y: 1.00032, z: 1.00032}
   m_Children: []
   m_Father: {fileID: 2038906446}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1558,7 +1558,7 @@ RectTransform:
   m_LocalScale: {x: 1.00032, y: 1.00032, z: 1.00032}
   m_Children: []
   m_Father: {fileID: 2038906446}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1934,13 +1934,13 @@ MonoBehaviour:
   loop: 0
   scrollbarVisibility: 0
   snapping: 1
-  snapVelocityThreshold: 0
-  snapWatchOffset: 0
+  snapVelocityThreshold: 100
+  snapWatchOffset: 0.5
   snapJumpToOffset: 0
-  snapCellCenterOffset: 3
+  snapCellCenterOffset: 0
   snapUseCellSpacing: 1
   snapTweenType: 1
-  snapTweenTime: 0
+  snapTweenTime: 0.2
 --- !u!222 &754079961
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6272,9 +6272,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 351910515}
   - {fileID: 679480832}
   - {fileID: 621922049}
+  - {fileID: 351910515}
   m_Father: {fileID: 1927256293}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
