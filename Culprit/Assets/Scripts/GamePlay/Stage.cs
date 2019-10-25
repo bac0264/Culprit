@@ -185,9 +185,19 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     #endregion
     public void LoadUnit()
     {
-        for (int g = 0; g < unitStageContainer.childCount && g < amountOfUnitStage; g++)
+        int g = 0;
+        int size = 20;
+        for (; g < unitStageContainer.childCount && g < (amountOfUnitStage / size + 1); g++)
         {
             unitStageContainer.GetChild(g).gameObject.SetActive(true);
+            for (int j = 0; j < unitStageContainer.GetChild(g).childCount && j < (amountOfUnitStage - size * g); j++)
+            {
+                unitStageContainer.GetChild(g).GetChild(j).gameObject.SetActive(true);
+            }
+        }
+        for (; g < unitStageContainer.childCount; g++)
+        {
+            unitStageContainer.GetChild(g).gameObject.SetActive(false);
         }
         _unitList = unitStageContainer.GetComponentsInChildren<UnitStage>();
         SetupEvent();
