@@ -57,7 +57,6 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
         public void LoadLargeData()
         {
             int amount = LoadUnitOnvalidate.instance.GetAmountStage();
-            amount = 100;
             // set up some simple data
             _data = new SmallList<Data>();
             for (var i = 0; i < amount; i++)
@@ -118,7 +117,7 @@ namespace EnhancedScrollerDemos.SuperSimpleDemo
         public float GetCellViewSize(EnhancedScroller scroller, int dataIndex)
         {
             // in this example, even numbered cells are 30 pixels tall, odd numbered cells are 100 pixels tall
-            return (dataIndex % 2 == 0 ? 30f : 100f);
+            return (dataIndex % 2 == 0 ? 200f : 200f);
         }
 
         /// <summary>
