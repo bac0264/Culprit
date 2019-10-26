@@ -6610,7 +6610,7 @@ GameObject:
   - component: {fileID: 5462880983682720085}
   - component: {fileID: 5182796128397574308}
   - component: {fileID: 5411531884196638764}
-  - component: {fileID: 6925874012240393343}
+  - component: {fileID: 5258165816237497168}
   m_Layer: 0
   m_Name: 0_4
   m_TagString: Untagged
@@ -6748,7 +6748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boneRoot: {fileID: 395312012002468786}
   skeletonRenderer: {fileID: 5182796128397574308}
---- !u!114 &6925874012240393343
+--- !u!114 &5258165816237497168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6757,19 +6757,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4875627086740230732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85f59586b46092343bd00816f227619a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0358732f5c711ff4182374890a9333c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indexStage: 0
+  indexUnit: 4
+  isWin: 0
   ani: {fileID: 5462880983682720085}
   btnContainer: {fileID: 4200342546749945564}
   AskBtns:
   - {fileID: 9176409594106710194}
   - {fileID: 9083976093723186872}
-  results: 0000000001000000
-  indexStage: 0
-  indexUnit: 4
-  validate: 1
-  isWin: 0
+  results: 0100000000000000
 --- !u!1 &4880357169381682481
 GameObject:
   m_ObjectHideFlags: 0

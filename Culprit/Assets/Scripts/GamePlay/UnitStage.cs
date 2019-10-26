@@ -30,7 +30,7 @@ public class UnitStage : MonoBehaviour, IShowStage, IPointerClickHandler, IHide,
         if (data is DataUnitStage)
         {
             DataUnitStage dataUnitStage = data as DataUnitStage;
-            level.text = "Level " + (dataUnitStage.indexUnitStage + 1).ToString();
+            level.text = (dataUnitStage.indexUnitStage + 1).ToString();
             _index = dataUnitStage.indexUnitStage;
             LoadImage(dataUnitStage.indexStage);
         }

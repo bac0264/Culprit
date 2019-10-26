@@ -22,8 +22,9 @@ public class ButtonPickUpAnswer : MonoBehaviour
     }
     public void AddBtns(UnitStage unitstage)
     {
-        if (unitstage.unit != null) {
-            int amount = unitstage.unit.btnContainer.childCount;
+        if (unitstage.unit != null && unitstage.unit is UnitMode1) {
+            UnitMode1 unit = unitstage.unit as UnitMode1;
+            int amount = unit.btnContainer.childCount;
             if (amount > 0)
             {
                 btns.Clear();
@@ -34,9 +35,9 @@ public class ButtonPickUpAnswer : MonoBehaviour
                     if (btn != null)
                     {
                         btn.onClick.RemoveAllListeners();
-                        Vector3 pos = unitstage.unit.btnContainer.GetChild(i).transform.localPosition;
+                        Vector3 pos = unit.btnContainer.GetChild(i).transform.localPosition;
                         btn.transform.DOMove(pos, 0);
-                        int result = unitstage.unit.GetResult(i);
+                        int result = unit.GetResult(i);
                         btn.onClick.AddListener(delegate { SetupBtn(unitstage, result); });
                         btn.transform.GetChild(0).GetComponent<Text>().text = (i + 1).ToString();
                         btns.Add(btn);
@@ -50,9 +51,11 @@ public class ButtonPickUpAnswer : MonoBehaviour
     {
         PlayerPrefs.SetInt("PickUpCulprit", result);
         Debug.Log("index: " + result);
-        if (unitStage != null && unitStage.unit != null)
+
+        if (unitStage != null && unitStage.unit != null && unitStage.unit is UnitMode1)
         {
-            if (unitStage.unit.IsWin(PlayerPrefs.GetInt("PickUpCulprit")))
+            UnitMode1 unit = unitStage.unit as UnitMode1;
+            if (unit.IsWin(PlayerPrefs.GetInt("PickUpCulprit")))
             {
             }
         }

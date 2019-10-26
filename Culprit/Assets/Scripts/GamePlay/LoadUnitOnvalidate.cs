@@ -69,7 +69,8 @@ public class LoadUnitOnvalidate : MonoBehaviour
         {
             if (unit.indexStage == indexStage && unit.indexUnit == indexUnitstage)
             {
-                GameObject obj = Instantiate(unit.gameObject, transform);
+                GameObject obj = Instantiate(unit.gameObject);
+                obj.transform.SetParent(transform);
                 obj.SetActive(true);
                 Unit _unit = obj.GetComponent<Unit>();
                 markedUnit.Add(_unit);

@@ -14,7 +14,7 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     public event Action<UnitStage> OnRightClickEvent;
     public event Action<Stage> OnRightClickStageEvent;
 
-    public UnitStage[] _unitList;
+    //  public UnitStage[] _unitList;
     public BlockUnitStage[] _blockList;
     public Image stageImage;
     public Text stageText;
@@ -34,9 +34,10 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     }
     public UnitStage GetUnitStage(int indexUnitStage)
     {
-        if ((indexUnitStage) < _unitList.Length)
+        if ((indexUnitStage) < amountOfUnitStage)
         {
-            UnitStage unitStage = _unitList[indexUnitStage];
+            UnitStage unitStage = _blockList[KeySave.Get_Index_Block(indexUnitStage)]
+                .unitstageList[KeySave.Get_Index_UnitStage(indexUnitStage)];
             unitStage.unit = LoadUnitOnvalidate.instance.GetUnitFromResources(index, unitStage._index);
             return unitStage;
         }
@@ -44,9 +45,11 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     }
     public UnitStage GetNextUnitStage(int indexUnitStage)
     {
-        if ((indexUnitStage + 1) < _unitList.Length)
+        int next = indexUnitStage + 1;
+        if (next < amountOfUnitStage)
         {
-            UnitStage unitStage = _unitList[indexUnitStage + 1];
+            UnitStage unitStage = _blockList[KeySave.Get_Index_Block(next)]
+      .unitstageList[KeySave.Get_Index_UnitStage(next)];
             unitStage.unit = LoadUnitOnvalidate.instance.GetUnitFromResources(index, unitStage._index);
             if (unitStage.unit != null) return unitStage;
             return null;
@@ -85,24 +88,24 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     // Hide All unitStage didnt pick
     public void HideAll(UnitStage unitstage)
     {
-        foreach (UnitStage unitStage in _unitList)
-        {
-            if (unitStage._index == unitstage._index)
-            {
-                unitStage.gameObject.SetActive(true);
-            }
-            else
-            {
-                unitStage.gameObject.SetActive(false);
-            }
-        }
+        //foreach (UnitStage unitStage in _unitList)
+        //{
+        //    if (unitStage._index == unitstage._index)
+        //    {
+        //        unitStage.gameObject.SetActive(true);
+        //    }
+        //    else
+        //    {
+        //        unitStage.gameObject.SetActive(false);
+        //    }
+        //}
     }
     public void ShowStage()
     {
         if (ButtonStageManager.instance != null)
             ButtonStageManager.instance.SetupStageContainer(this);
         Hide();
-       // OpenAllUnitStage();
+        // OpenAllUnitStage();
     }
 
     // Hide & Open Stage and unitStage
@@ -123,23 +126,33 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
 
     public void OpenAllUnitStage()
     {
-        foreach (UnitStage unit in _unitList)
+        for (int i = 0 ; i < _blockList.Length; i++)
         {
-            unit.ActiveUnitStage(index);
+            for (int j = 0; j < _blockList[i].unitstageList.Length; j++)
+            {
+                _blockList[i].unitstageList[i].ActiveUnitStage(index);
+            }
         }
     }
     public void LoadImageForAllUnitStage()
     {
-        foreach (UnitStage unit in _unitList)
+        int i = 0;
+        for (; i < _blockList.Length; i++)
         {
-            unit.LoadImage(index);
+            for (int j = 0; j < _blockList[i].unitstageList.Length; j++)
+            {
+                _blockList[i].unitstageList[i].LoadImage(index);
+            }
         }
     }
     public void HideAllUnitStage()
     {
-        foreach (UnitStage unit in _unitList)
+        for (int i = 0; i < _blockList.Length; i++)
         {
-            unit.UnactiveUnitStage();
+            for (int j = 0; j < _blockList[i].unitstageList.Length; j++)
+            {
+                _blockList[i].unitstageList[i].UnactiveUnitStage();
+            }
         }
         Open();
     }
@@ -209,9 +222,9 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
         //{
         //    unit.OnRightClickEvent += OnRightClickEvent;
         //}
-        for(int i = 0; i < _blockList.Length; i++)
+        for (int i = 0; i < _blockList.Length; i++)
         {
-            for(int j = 0; j < _blockList[i].unitstageList.Length; j++)
+            for (int j = 0; j < _blockList[i].unitstageList.Length; j++)
             {
                 _blockList[i].unitstageList[j].OnRightClickEvent += OnRightClickEvent;
             }

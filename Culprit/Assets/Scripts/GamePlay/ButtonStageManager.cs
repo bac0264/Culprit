@@ -62,7 +62,10 @@ public class ButtonStageManager : MonoBehaviour
     public void Try()
     {
         TurnOffPopup();
-        if (unitStage.unit != null) unitStage.unit.ani.Rebind();
+        if (unitStage.unit != null)
+        {
+            unitStage.unit.Try();
+        }
     }
     public void Next()
     {
