@@ -35,8 +35,16 @@ public class ButtonStageManager : MonoBehaviour
     public void TurnOn_Subcam(UnitStage unit)
     {
         this.unitStage = unit;
-        subCamm_1.gameObject.SetActive(true);
-        mainCam.gameObject.SetActive(false);
+        if (unit.unit is UnitMode1)
+        {
+            subCamm_1.gameObject.SetActive(true);
+            mainCam.gameObject.SetActive(false);
+        }
+        else
+        {
+            subCamm_1.gameObject.SetActive(false);
+            mainCam.gameObject.SetActive(true);
+        }
         btnPickup.AddBtns(unitStage);
     }
     public void SetupStageContainer(Stage stage)

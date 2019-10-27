@@ -7,6 +7,7 @@ public class LoadUnitOnvalidate : MonoBehaviour
 {
     public static LoadUnitOnvalidate instance;
     public Transform unitContainer;
+    public Transform unitMode2Container;
     public StageManager stageManager;
     public Unit[] unitList;
     public List<Unit> markedUnit;
@@ -23,7 +24,7 @@ public class LoadUnitOnvalidate : MonoBehaviour
             unitList = Resources.LoadAll<Unit>("Level");
             if (stageManager != null)
             {
-              //  stageManager.LoadUnit(unitList);
+                //  stageManager.LoadUnit(unitList);
             }
         }
     }
@@ -69,8 +70,15 @@ public class LoadUnitOnvalidate : MonoBehaviour
         {
             if (unit.indexStage == indexStage && unit.indexUnit == indexUnitstage)
             {
-                GameObject obj = Instantiate(unit.gameObject);
-                obj.transform.SetParent(transform);
+                GameObject obj = null;
+                if (unit is UnitMode1)
+                {
+                    obj = Instantiate(unit.gameObject, unitContainer);
+                }
+                else if (unit is UnitMode2)
+                {
+                    obj = Instantiate(unit.gameObject, unitMode2Container);
+                }
                 obj.SetActive(true);
                 Unit _unit = obj.GetComponent<Unit>();
                 markedUnit.Add(_unit);

@@ -117,6 +117,14 @@ public class StageManager : MonoBehaviour
                 btns[i].gameObject.SetActive(false);
         }
     }
+    public UnitStage GetUnitStage(int Stage, int uniStage)
+    {
+        return _stageList[Stage].GetUnitStage(uniStage);
+    }
+    public Stage GetStage(int Stage)
+    {
+        return _stageList[Stage];
+    }
     // Load Onvalidate
     #region
     // Thread: Enhance Scroller create object attaching Stage Script -> Stage Manager get Stage array.

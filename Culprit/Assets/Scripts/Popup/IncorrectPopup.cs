@@ -16,4 +16,13 @@ public class IncorrectPopup : BasePopup
     {
         base.HidePopup();
     }
+    public void Try()
+    {
+        base.HidePopup();
+
+    }
+    public void Next()
+    {
+
+    }
 }

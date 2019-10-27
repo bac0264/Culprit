@@ -73,7 +73,6 @@ public class UnitStage : MonoBehaviour, IShowStage, IPointerClickHandler, IHide,
     public void LoadImage(int indexStage)
     {
         int curUnitStage = SaveLoadStageData.LoadDataStage(indexStage);
-        Debug.Log("indexL " + _index);
         if (_index < curUnitStage)
         {
             enabled = true;

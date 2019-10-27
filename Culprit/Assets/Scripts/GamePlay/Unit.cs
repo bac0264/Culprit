@@ -22,7 +22,9 @@ public class Unit : MonoBehaviour
     //}
     // Set Event in animation
     public virtual void Try() { }
+    public virtual void Next() { }
     #region
+    public virtual void IsWin() { }
     public virtual void ShowPopup()
     {
         if (ButtonStageManager.instance != null)

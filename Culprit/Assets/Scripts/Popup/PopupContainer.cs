@@ -4,6 +4,7 @@ using System.Collections;
 public class PopupContainer : MonoBehaviour
 {
     public static PopupContainer instance;
+    public Transform Stage;
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -13,10 +14,10 @@ public class PopupContainer : MonoBehaviour
 
     public void GetIncorrectPopup()
     {
-        GameObject obj = Instantiate(incorrectPopupPrefab.gameObject);
+        GameObject obj = Instantiate(incorrectPopupPrefab.gameObject, Stage);
     }
     public void GetCorrectPopupPrefab()
     {
-        GameObject obj = Instantiate(correctPopupPrefab.gameObject);
+        GameObject obj = Instantiate(correctPopupPrefab.gameObject, Stage);
     }
 }
