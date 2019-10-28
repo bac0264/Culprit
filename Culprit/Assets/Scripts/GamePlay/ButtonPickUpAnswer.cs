@@ -49,14 +49,12 @@ public class ButtonPickUpAnswer : MonoBehaviour
     }
     void SetupBtn(UnitStage unitStage, int result)
     {
-        PlayerPrefs.SetInt("PickUpCulprit", result);
-        Debug.Log("index: " + result);
-
         if (unitStage != null && unitStage.unit != null && unitStage.unit is UnitMode1)
         {
             UnitMode1 unit = unitStage.unit as UnitMode1;
-            if (unit.IsWin(PlayerPrefs.GetInt("PickUpCulprit")))
+            if (unit.IsWin(result))
             {
+                Debug.Log("run");
             }
         }
         UnactiveBtn();
@@ -65,7 +63,6 @@ public class ButtonPickUpAnswer : MonoBehaviour
     {
         foreach(Button btn in btns)
         {
-            Debug.Log("run");
             btn.gameObject.SetActive(true);
         }
 

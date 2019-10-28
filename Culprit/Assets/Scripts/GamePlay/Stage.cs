@@ -60,12 +60,10 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
     #region
     public void PickUnitStage(UnitStage unitstage)
     {
-        Debug.Log("run");
 
         if (unitstage != null)
         {
             Unit unit = LoadUnitOnvalidate.instance.GetUnitFromResources(index, unitstage._index);
-            Debug.Log(unit.name);
             if (unit != null)
             {
                 unitstage.LoadUnit(unit);
@@ -141,7 +139,7 @@ public class Stage : CellView, IShowStage, IPointerClickHandler, IHide, IOpen
         {
             for (int j = 0; j < _blockList[i].unitstageList.Length; j++)
             {
-                _blockList[i].unitstageList[i].LoadImage(index);
+                _blockList[i].unitstageList[j].LoadImage(index);
             }
         }
     }

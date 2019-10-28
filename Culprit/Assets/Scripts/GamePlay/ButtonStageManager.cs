@@ -10,10 +10,11 @@ public class ButtonStageManager : MonoBehaviour
     public Camera subCamm_1;
     public Stage stage;
     public UnitStage unitStage;
+    public GameObject Mode2Cotnainer;
     private void Awake()
     {
         if (instance == null) instance = this;
-        
+
     }
     private void OnValidate()
     {
@@ -21,7 +22,7 @@ public class ButtonStageManager : MonoBehaviour
     }
     public void TurnOn_MainCam()
     {
-        TurnOffPopup();
+        TurnOffAllPopup();
         mainCam.gameObject.SetActive(true);
         subCamm_1.gameObject.SetActive(false);
         if (unitStage != null)
@@ -37,14 +38,14 @@ public class ButtonStageManager : MonoBehaviour
         this.unitStage = unit;
         if (unit.unit is UnitMode1)
         {
-            subCamm_1.gameObject.SetActive(true);
-            mainCam.gameObject.SetActive(false);
+            Mode2Cotnainer.SetActive(false);
         }
         else
         {
-            subCamm_1.gameObject.SetActive(false);
-            mainCam.gameObject.SetActive(true);
+            Mode2Cotnainer.SetActive(true);
         }
+        subCamm_1.gameObject.SetActive(true);
+        mainCam.gameObject.SetActive(false);
         btnPickup.AddBtns(unitStage);
     }
     public void SetupStageContainer(Stage stage)
@@ -66,21 +67,14 @@ public class ButtonStageManager : MonoBehaviour
     #endregion
     // Button Next Try of Popup
     #region
+    public void TurnOffAllPopup()
+    {
+        if (WinPopup.instance != null) WinPopup.instance.HidePopup();
+        if (LosePopup.instance != null) LosePopup.instance.HidePopup();
+        if (CorrectPopup.instance != null) CorrectPopup.instance.HidePopup();
+        if (IncorrectPopup.instance != null) IncorrectPopup.instance.HidePopup();
+    }
 
-    public void Try()
-    {
-        TurnOffPopup();
-        if (unitStage.unit != null)
-        {
-            unitStage.unit.Try();
-        }
-    }
-    public void Next()
-    {
-        TurnOffPopup();
-        if (StageManager.instance != null)
-            StageManager.instance.NextLevel(unitStage);
-    }
     #endregion
     // Popup
     #region
@@ -88,43 +82,19 @@ public class ButtonStageManager : MonoBehaviour
     {
         if (unit.isWin)
         {
-            TurnOnWinPopup();
+            if (WinPopup.instance == null) PopupContainer.instance.GetWinPopup();
+            if (WinPopup.instance != null)
+            {
+                WinPopup.instance.ShowPopup();
+            }
         }
         else
         {
-            TurnOnLosePopup();
-        }
-    }
-    public void TurnOffPopup()
-    {
-        if (LosePopup.instance != null && WinPopup.instance != null)
-        {
-            LosePopup.instance.HidePopup();
-            WinPopup.instance.HidePopup();
-        }
-    }
-    public void TurnOnPopup()
-    {
-        if (LosePopup.instance != null && WinPopup.instance != null)
-        {
-            LosePopup.instance.ShowPopup();
-            WinPopup.instance.ShowPopup();
-        }
-    }
-    public void TurnOnWinPopup()
-    {
-        if (LosePopup.instance != null && WinPopup.instance != null)
-        {
-            LosePopup.instance.HidePopup();
-            WinPopup.instance.ShowPopup();
-        }
-    }
-    public void TurnOnLosePopup()
-    {
-        if (LosePopup.instance != null && WinPopup.instance != null)
-        {
-            LosePopup.instance.ShowPopup();
-            WinPopup.instance.HidePopup();
+            if (LosePopup.instance == null) PopupContainer.instance.GetLosePopup();
+            if (LosePopup.instance != null)
+            {
+                LosePopup.instance.ShowPopup();
+            }
         }
     }
     #endregion

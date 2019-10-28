@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 5502858795694607875}
   - component: {fileID: 5502858795694607874}
   m_Layer: 5
-  m_Name: 1_1
+  m_Name: 1_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indexStage: 1
-  indexUnit: 1
+  indexUnit: 2
   isWin: 0
   correctAnswerBtns:
   - {fileID: 5502858795184119565}

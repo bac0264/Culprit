@@ -7328,7 +7328,7 @@ MonoBehaviour:
   AskBtns:
   - {fileID: 5480521064135567750}
   - {fileID: 2862573893817810650}
-  results: 0000000001000000
+  results: 0100000000000000
 --- !u!1 &7913092725644703376
 GameObject:
   m_ObjectHideFlags: 0

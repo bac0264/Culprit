@@ -7,12 +7,12 @@ public class LosePopup : BasePopup
     public static LosePopup instance;
     public List<GameObject> loseImageList;
     public Transform containerLoseImageList;
-    private void OnEnable()
+    public UnitStage unitStage;
+    private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            HidePopup();
         }
     }
     private void OnValidate()
@@ -40,5 +40,15 @@ public class LosePopup : BasePopup
     {
         int random = Random.Range(0, loseImageList.Count);
         loseImageList[random].SetActive(true);
+    }
+    public override void Try()
+    {
+        unitStage = ButtonStageManager.instance.unitStage;
+        Debug.Log(unitStage.unit);
+        if (unitStage.unit != null)
+        {
+            unitStage.unit.Try();
+        }
+        HidePopup();
     }
 }

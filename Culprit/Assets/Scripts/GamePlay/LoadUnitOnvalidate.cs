@@ -50,7 +50,6 @@ public class LoadUnitOnvalidate : MonoBehaviour
                 amount++;
             }
         }
-        Debug.Log(amount);
         return amount;
     }
     public Unit GetUnitFromResources(int indexStage, int indexUnitstage)

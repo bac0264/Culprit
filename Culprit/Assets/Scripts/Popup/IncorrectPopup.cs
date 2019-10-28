@@ -16,12 +16,12 @@ public class IncorrectPopup : BasePopup
     {
         base.HidePopup();
     }
-    public void Try()
+    public override void Try()
     {
-        base.HidePopup();
+        base.Try();
 
     }
-    public void Next()
+    public override void Next()
     {
 
     }

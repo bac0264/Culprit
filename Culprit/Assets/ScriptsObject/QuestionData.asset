@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd106cf245b16343b79cfd33894ca57, type: 3}
+  m_Name: QuestionData
+  m_EditorClassIdentifier: 
+  questionList:
+  - MODE: 2
+    LEVEL: 1
+    listQues:
+    - Someone phoned the police about a dead body floating on the pond. When they
+      arrived at the scene; they knew that the victim was the park employee. How did
+      they know that?
+    - The boat floating near the body is the one they rent out at this park. Other
+      park rangers are sure that they locked the boat away at the end of the day.
+      How did the boat get out?
+    - Police then found something near the body which led them to believe that someone
+      had been there at the time of the victim's death. What was the item they found?
+    - Something in the scene tells us about the relationship between the victim and
+      the person who accompanied him. Which item is it?
+  - MODE: 2
+    LEVEL: 2
+    listQues:
+    - Someone phoned the police about a dead body floating on the pond. When they
+      arrived at the scene; they knew that the victim was the park employee. How did
+      they know that?
+    - The boat floating near the body is the one they rent out at this park. Other
+      park rangers are sure that they locked the boat away at the end of the day.
+      How did the boat get out?
+    - Police then found something near the body which led them to believe that someone
+      had been there at the time of the victim's death. What was the item they found?
+    - Something in the scene tells us about the relationship between the victim and
+      the person who accompanied him. Which item is it?
+  - MODE: 2
+    LEVEL: 3
+    listQues:
+    - A fisher found a dead body at the lake. He knew the woman inside of the boat
+      was dead by one glance. How did he know?
+    - The police believe that the person who killed her was a man. Which part of the
+      scene helped them?
+    - The police suspect this is a murder rob property case. Why do the police think
+      so?
+    - How did the police know that the boat was brought to the lake from elsewhere?
+      The clue can be seen on the boat itself.

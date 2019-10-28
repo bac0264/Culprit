@@ -20,7 +20,7 @@ public class CorrectPopup : BasePopup
     {
         base.HidePopup();
     }
-    public void Next()
+    public override void Next()
     {
         if (container != null)
         {
@@ -29,7 +29,7 @@ public class CorrectPopup : BasePopup
             gameObject.SetActive(false);
         }
     }
-    public void Try()
+    public override void Try()
     {
 
     }

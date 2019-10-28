@@ -10,7 +10,8 @@ public class UnitMode2 : Unit
     public Transform containerCorrectAnswersBtn;
     public Transform BtnContainer;
     public bool[] checks;
-    public int indexScene;
+    public int MaxIndexScene;
+    public int CurIndexScene;
     public Color defaultColor = Color.white;
     public Color passed = Color.red;
     public Color current = Color.yellow;
@@ -38,11 +39,12 @@ public class UnitMode2 : Unit
     }
     private void Awake()
     {
-        SetBtnSceneDisplay(0);
-        btnScenes[0].onClick.AddListener(delegate { SetBtnSceneDisplay(0); });
-        btnScenes[1].onClick.AddListener(delegate { SetBtnSceneDisplay(1); });
-        btnScenes[2].onClick.AddListener(delegate { SetBtnSceneDisplay(2); });
-        btnScenes[3].onClick.AddListener(delegate { SetBtnSceneDisplay(3); });
+        for(int i = 0; i < btnScenes.Count; i++)
+        {
+            if (i == 0) SetBtnSceneDisplay(i);
+            int z = i;
+            btnScenes[z].onClick.AddListener(delegate { SetBtnSceneDisplay(z); });
+        }
         for (int i = 0; i < correctAnswerBtns.Count; i++)
         {
             // correctAnswerBtns[i].onClick.RemoveAllListeners();
@@ -55,27 +57,32 @@ public class UnitMode2 : Unit
     }
     public void SetBtnSceneDisplay(int _index)
     {
-        if (_index <= indexScene)
+        CurIndexScene = _index;
+        if (_index <= MaxIndexScene)
         {
             for (int i = 0; i < btnScenes.Count; i++)
             {
-                if (i <= indexScene)
+                if (i == _index)
                 {
-                    if (i == _index)
-                    {
-                        btnScenes[i].GetComponent<Image>().color = current;
-                        correctAnswerBtns[i].gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        btnScenes[i].GetComponent<Image>().color = passed;
-                        correctAnswerBtns[i].gameObject.SetActive(false);
-                    }
+                    btnScenes[i].transform.GetChild(0).gameObject.SetActive(true);
+                    correctAnswerBtns[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    btnScenes[i].transform.GetChild(0).gameObject.SetActive(false);
+                    correctAnswerBtns[i].gameObject.SetActive(false);
+                }
+                if (i < MaxIndexScene)
+                {
+                    btnScenes[i].GetComponent<Image>().color = passed;
+                }
+                else if (i == MaxIndexScene)
+                {
+                    btnScenes[i].GetComponent<Image>().color = current;
                 }
                 else
                 {
                     btnScenes[i].GetComponent<Image>().color = defaultColor;
-                    correctAnswerBtns[i].gameObject.SetActive(false);
                 }
             }
         }
@@ -100,46 +107,58 @@ public class UnitMode2 : Unit
     }
     public void OpenScene()
     {
-        if (indexScene > correctAnswerBtns.Count - 1)
+        if (MaxIndexScene > correctAnswerBtns.Count - 1)
         {
-            indexScene = correctAnswerBtns.Count - 1;
-            btnScenes[indexScene].GetComponent<Image>().color = passed;
-            checks[indexScene] = true;
+            MaxIndexScene = correctAnswerBtns.Count - 1;
+            btnScenes[MaxIndexScene].GetComponent<Image>().color = passed;
+            checks[MaxIndexScene] = true;
             isWin = true;
             return;
         }
-        else if (indexScene <= 0)
+        else if (MaxIndexScene <= 0)
         {
             return;
         }
         else
         {
-            checks[indexScene - 1] = true;
-            checks[indexScene] = false;
-            btnScenes[indexScene - 1].GetComponent<Image>().color = passed;
-            btnScenes[indexScene].GetComponent<Image>().color = current;
-            correctAnswerBtns[indexScene - 1].gameObject.SetActive(false);
-            correctAnswerBtns[indexScene].gameObject.SetActive(true);
+            checks[MaxIndexScene - 1] = true;
+            checks[MaxIndexScene] = false;
+            btnScenes[MaxIndexScene - 1].GetComponent<Image>().color = passed;
+            btnScenes[MaxIndexScene - 1].transform.GetChild(0).gameObject.SetActive(false);
+            btnScenes[MaxIndexScene].GetComponent<Image>().color = current;
+            btnScenes[MaxIndexScene].transform.GetChild(0).gameObject.SetActive(true);
+            correctAnswerBtns[MaxIndexScene - 1].gameObject.SetActive(false);
+            correctAnswerBtns[MaxIndexScene].gameObject.SetActive(true);
         }
     }
     public override void Next()
     {
-        indexScene++;
-        OpenScene();
+        if (CurIndexScene < MaxIndexScene)
+        {
+            CurIndexScene++;
+            SetBtnSceneDisplay(CurIndexScene);
+        }
+        else
+        {
+            MaxIndexScene++;
+            CurIndexScene = MaxIndexScene;
+            OpenScene();
+        }
     }
     public override void IsWin()
     {
         if (isWin)
         {
             int curIndexUnit = SaveLoadStageData.LoadDataStage(indexStage);
-            Debug.Log("curIden: " + curIndexUnit);
             if (curIndexUnit <= indexUnit)
             {
-                Debug.Log("run");
                 SaveLoadStageData.SaveDataStage(indexStage, indexUnit + 1);
-                UnitStage unitStage = StageManager.instance.GetUnitStage(indexStage, indexUnit);
-                StageManager.instance.NextLevel(unitStage);
-                StageManager.instance.GetStage(indexStage).LoadImageForAllUnitStage();
+                if (ButtonStageManager.instance != null && StageManager.instance != null)
+                {
+                    UnitStage unitStage = ButtonStageManager.instance.unitStage;
+                    ButtonStageManager.instance.stage.LoadImageForAllUnitStage();
+                    StageManager.instance.NextLevel(unitStage);
+                }
             }
         }
     }

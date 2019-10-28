@@ -49,7 +49,6 @@ public class UnitEnhance : SimpleDemo
     //}
     public void LoadData(int amount, int _indexStage)
     {
-        Debug.Log("amount: " + amount + ", " + _indexStage);
         int size = 20;
         _dataList.Clear();
         int temp = amount / size;
